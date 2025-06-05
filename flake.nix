@@ -21,5 +21,16 @@
         ];
       };
     };
+
+      tiny = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./machines/tiny/configuration.nix
+          ./machines/tiny/hardware-configuration.nix
+
+          { nixpkgs.config.allowUnfree = true; }
+          
+        ];
+      };
   };
 } 
