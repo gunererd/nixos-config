@@ -7,8 +7,15 @@
     package = pkgs.git;
     
     # Global git configuration
-    userName = "erdem";
-    userEmail = "gunererd@gmail.com";
+    config = {
+      init = {
+        defaultBranch = "main";
+      };
+      user = {
+        name = "erdem";
+        email = "gunererd@gmail.com";
+      };
+    };
   };
   
   # Add git to system packages
