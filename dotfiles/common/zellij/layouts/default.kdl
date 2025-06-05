@@ -1,0 +1,52 @@
+layout {
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "{mode}"
+                // format_left   "{mode} #[fg=#89B4FA,bold]{session} {command_git_branch}"
+                // format_left   "{command_git_branch}"
+                format_center "{tabs}"
+                format_right  "{notifications} {command_weather} | {datetime}"
+                format_space  ""
+
+                border_enabled  "true"
+                border_char     "─"
+                border_format   "#[fg=#6C7086]{char}"
+                border_position "top"
+
+                // hide_frame_for_single_pane "true"
+
+                mode_normal  "#[fg=red] {name} "
+                mode_locked  "#[fg=#6C7086] {name} "
+
+                tab_normal   "#[fg=#6C7086] {name} "
+                tab_active   "#[fg=#aaaaaa,bold] [{name}] "
+
+
+                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+                command_git_branch_format      "#[fg=red] {stdout}"
+                command_git_branch_interval    "3"
+                command_git_branch_rendermode  "static"
+
+                command_weather_command "curl \"wttr.in/Istanbul?format=%c+%t\""
+                command_weather_format "{stdout}"
+                command_weather_interval "1800" // three hours
+                command_weather_rendermode "static"
+
+                notification_format_unread "#[bg=$bg,fg=$yellow]  {message}"
+                notification_format_no_notifications ""
+                notification_show_interval "10"
+
+                datetime        "#[fg=#6C7086]{format} "
+                datetime_format "%H:%M"
+                datetime_timezone "Europe/Istanbul"
+
+
+                notification_format_unread           "#[fg=blue,bg=$bg,blink]  #[fg=blue,bg=$bg]{message} |"
+                notification_format_no_notifications ""
+                notification_show_interval           "10"
+            }
+        }
+    }
+}

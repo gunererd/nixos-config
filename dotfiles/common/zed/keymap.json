@@ -1,0 +1,85 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+      // "escape": "editor::Cancel",
+      "ctrl-[": "workspace::ToggleLeftDock",
+      "ctrl-]": "workspace::ToggleRightDock",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "alt-g": ["task::Spawn", { "task_name": "start lazygit" }],
+      "ctrl-b": ["workspace::SendKeystrokes", ": l s enter"]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-'": "agent::ToggleFocus"
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "ctrl-alt-'": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode != insert)",
+    "bindings": {
+      // ":": "command_palette::Toggle"
+      // "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  // {
+  //   "context": "Editor && (vim_mode == helix_normal)",
+  //   "bindings": {
+  //     "escape": "editor::Cancel",
+  //     "x": ["workspace::SendKeystrokes", "g h v $"],
+  //     "space k": "editor::Hover",
+  //     "d d": "vim::VisualDeleteLine",
+  //     "space d": "editor::GoToDiagnostic",
+  //     "space D": "diagnostics::Deploy"
+  //   }
+  // },
+  {
+    "context": "Editor && (vim_mode == normal)",
+    "bindings": {
+      // "ctrl-j": "terminal_panel::ToggleFocus",
+      // "q q": ["workspace::SendKeystrokes", ": q u i t enter"]
+      "q q": ["pane::CloseActiveItem", { "close_pinned": false }],
+      "g l": ["workspace::SendKeystrokes", "$"],
+      "g h": ["workspace::SendKeystrokes", "0"]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      // "ctrl-j": "terminal_panel::ToggleFocus",
+      // "q q": ["workspace::SendKeystrokes", ": q u i t enter"]
+      "ctrl-l": null
+    }
+  }
+  // {
+  //   "context": "Editor && (vim_mode == visual)",
+  //   "bindings": {
+  //     "escape": "vim::SwitchToHelixNormalMode",
+  //     "x": "editor::SelectLine"
+  //   }
+  // }
+]

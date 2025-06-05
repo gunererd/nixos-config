@@ -1,0 +1,69 @@
+# languages.toml
+
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 20    # set max completion results len for each group: words, snippets, unicode-input
+snippets_first = true        # completions will return before snippets by default
+feature_words = true         # enable completion by word
+feature_snippets = true      # enable snippets
+feature_unicode_input = true # enable "unicode input"
+feature_paths = true         # enable path completion
+
+
+[[sources]] # list of sources to load
+name = "friendly-snippets"                                  # optional name shown on snippet description
+git = "https://github.com/rafamadriz/friendly-snippets.git" # git repo with snippets collections
+
+[[language]]
+name = "markdown"
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+auto-format = true
+text-width = 80
+
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports"}
+language-servers = [ "gopls", "golangci-lint-lsp", "scls"]
+
+[language-server.golangci-ling-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1"]
+
+
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server"]
+formatter = { command = 'npx', args = ["prettier", "--parser", "json"] }
+auto-format = true
+
+[[language]]
+name = "css"
+formatter = { command = 'npx', args = ["prettier", "--parser", "css"] }
+language-servers = [
+  "vscode-css-language-server",
+]
+auto-format = true
+
+
+[[language]]
+name = "html"
+formatter = { command = 'npx', args = ["prettier", "--parser", "html"] }
+language-servers = [
+  "vscode-html-language-server",
+  "scls"
+]
+auto-format = true
+
+
+[language-server.godot]
+command = "nc" # or nc
+args = [ "127.0.0.1", "6005"]
+
+[[language]]
+name = "gdscript"
+language-servers = ["godot"]

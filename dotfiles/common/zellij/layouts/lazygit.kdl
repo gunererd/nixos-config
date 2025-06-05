@@ -1,0 +1,7 @@
+layout {
+    pane command="lazygit"
+    // pane size=1 borderless=false{
+    //     plugin location="zellij:compact-bar"
+    // }
+}
+
