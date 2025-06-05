@@ -10,9 +10,10 @@
 # theme = "jetbrains_dark"
 # theme = "dark_plus"
 # theme = "everforest_dark"
-theme = "darkvoid"
+# theme = "darkvoid"
 # theme = "onedarker"
 # theme = "flux"
+theme = "base16_transparent"
 
 [keys.normal]
 "'" = "goto_word"
