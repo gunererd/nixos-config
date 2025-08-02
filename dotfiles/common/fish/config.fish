@@ -56,8 +56,6 @@ end
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
-thefuck --alias | source
-
 function notify
     set input $argv[1]
     if not test -z $input
