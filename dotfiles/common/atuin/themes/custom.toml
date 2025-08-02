@@ -1,0 +1,13 @@
+[theme]
+name = "custom"
+parent = "autumn"
+
+[colors]
+Guidance = "#666666"
+Base = "#333333"  # unselected
+Important = "#666666"
+Title = "#666666"
+Annotation = "#666666"
+AlertInfo = "#666666"
+AlertWarn= "#666666"
+AlertError= "#bbbbbb" #selected
