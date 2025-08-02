@@ -20,6 +20,8 @@ in
     ../../programs/helix.nix
     ../../programs/picom.nix
     ../../programs/git.nix
+    ../../programs/direnv.nix
+    ../../programs/atuin.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
@@ -56,7 +58,7 @@ in
       dpi = 120;
       xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
       displayManager.sessionCommands = ''
-      xwallpaper --zoom ${../../wallpapers/eyes.png}
+      xwallpaper --zoom ${../../wallpapers/space_mountains.png}
       xset r rate 200 35 &
     '';
     };

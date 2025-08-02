@@ -1,9 +1,6 @@
 set -U fish_greeting
 set -g fish_term24bit 1
 
-set -gx NVM_DIR $HOME/.nvm
-bass source $NVM_DIR/nvm.sh
-
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end

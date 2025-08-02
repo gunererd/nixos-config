@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+
+  environment.systemPackages = with pkgs; [
+    starship
+  ];
+
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -8,9 +14,9 @@
     '';
   };
 
+
   programs.starship.enable = true;
 
-  # Optional: set fish as the default shell
   users.defaultUserShell = pkgs.fish;
   environment.shells = [ pkgs.fish ];
 }
