@@ -34,6 +34,8 @@
     ripgrep    # Better grep
     zoxide     # Better cd
     fzf        # Fuzzy finder
+    atuin
+    direnv
   ];
   
   # System-wide font configuration
