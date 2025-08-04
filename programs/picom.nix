@@ -7,6 +7,10 @@
     package = pkgs.picom;
     backend = "glx";
     fade = true;
+    settings = {
+      inactive-dim = 0.3;
+      inactive-dim-fixed = true;
+    };
   };
 
 } 
