@@ -26,6 +26,7 @@ in
     ../../programs/claude-code.nix
     ../../programs/clipman.nix
     ../../programs/screenshot.nix
+    ../../programs/image-viewer.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
