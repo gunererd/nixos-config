@@ -80,6 +80,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Key([mod], "space", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "space", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "a", lazy.spawn("rofi -show window"), desc="Show window switcher"),
     Key([mod], "s", lazy.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard"), desc="Show clipboard history"),
     Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn a filemanager"),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
