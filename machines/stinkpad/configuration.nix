@@ -53,6 +53,15 @@ in
 
   hardware.acpilight.enable = true;
 
+
+
+  # Sound settings  
+  services.pipewire.enable = false;
+  hardware.pulseaudio.enable = true;
+  hardware.alsa.enable = true;
+
+
+
   services = {
     acpid.enable = true;
     xserver = {
