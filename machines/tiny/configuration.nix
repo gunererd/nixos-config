@@ -21,6 +21,7 @@ in
     ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/clipman.nix
+    ../../programs/docker.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 

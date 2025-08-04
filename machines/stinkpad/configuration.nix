@@ -27,6 +27,7 @@ in
     ../../programs/clipman.nix
     ../../programs/screenshot.nix
     ../../programs/image-viewer.nix
+    ../../programs/docker.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
