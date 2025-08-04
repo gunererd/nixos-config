@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   username = "hippo";
@@ -59,6 +59,11 @@ in
   services.pipewire.enable = false;
   hardware.pulseaudio.enable = true;
   hardware.alsa.enable = true;
+  services.pulseaudio.enable = lib.mkForce false;
+
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+  ];
 
 
 
