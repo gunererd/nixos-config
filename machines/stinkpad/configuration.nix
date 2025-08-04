@@ -52,6 +52,7 @@ in
     QT_SCALE_FACTOR = "1";
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1";
+    XCURSOR_SIZE = "32";
   };
 
   hardware.acpilight.enable = true;

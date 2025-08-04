@@ -235,7 +235,7 @@ keys = [
     # Window resizing
     Key([mod], "equal", resize_window_larger, desc="Increase window size"),
     Key([mod], "minus", resize_window_smaller, desc="Decrease window size"),
-    Key([mod, "shift"], "s", lazy.spawn("maim -s | xclip -selection clipboard -t image/png"), desc="Screenshot to clipboard"),
+    Key([mod, "shift"], "s", lazy.spawn("sh -c 'maim -s ~/Pictures/$(date +%Y%m%d-%H%M%S).png'"), desc="Screenshot to file"),
 
 ]
 
