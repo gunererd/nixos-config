@@ -20,8 +20,8 @@ in
     ../../programs/helix.nix
     ../../programs/picom.nix
     ../../programs/git.nix
-    ../../programs/direnv.nix
-    ../../programs/atuin.nix
+    ../../programs/zellij.nix
+    ../../programs/claude-code.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
