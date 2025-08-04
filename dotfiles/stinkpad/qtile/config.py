@@ -33,6 +33,21 @@ from libqtile import hook
 mod = "mod4"
 terminal = guess_terminal()
 
+@lazy.function
+def bring_or_spawn_alacritty(qtile):
+    """Bring existing alacritty to current group or spawn new one"""
+    for group in qtile.groups:
+        for window in group.windows:
+            if window.window.get_wm_class() and "Alacritty" in window.window.get_wm_class():
+                # Move window to current group and focus it
+                window.togroup(qtile.current_group.name)
+                qtile.current_group.focus(window)
+                # Center the window
+                window.cmd_set_position_floating(100, 100)
+                return
+    # No alacritty found, spawn new one
+    qtile.spawn("alacritty")
+
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -65,8 +80,8 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
+    Key([mod], "Return", bring_or_spawn_alacritty, desc="Bring or spawn alacritty"),
+
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key(
@@ -207,8 +222,24 @@ wmname = "LG3D"
 floating_classes = ["Alacritty", "dolphin"]
 
 @hook.subscribe.client_new
-def set_floating_terminal(window):
-    if window.window.get_wm_class()[0] in floating_classes:
+def set_floating_by_default(window):
+    # Float all windows by default
+    window.toggle_floating()
+    window.bring_to_front()  # Keep floating windows on top
+    
+    # Set specific size for certain apps
+    if window.window.get_wm_class() and window.window.get_wm_class()[0] in floating_classes:
         window.cmd_set_size_floating(1600, 1000)  # Width x Height in pixels
         window.cmd_set_position_floating(100, 100)  # Optional: set position
+
+@hook.subscribe.client_focus
+def maintain_float_on_top(window):
+    # Ensure floating windows stay on top when focused
+    if window.floating:
+        window.bring_to_front()
+    else:
+        # If tiled window is focused, bring all floating windows to front
+        for win in window.group.windows:
+            if win.floating:
+                win.bring_to_front()
 
