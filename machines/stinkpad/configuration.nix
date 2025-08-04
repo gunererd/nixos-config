@@ -47,9 +47,9 @@ in
   };
   
   environment.sessionVariables = {
-    QT_SCALE_FACTOR = "1.25";
+    QT_SCALE_FACTOR = "1";
     GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1.25";
+    GDK_DPI_SCALE = "1";
   };
 
   hardware.acpilight.enable = true;
