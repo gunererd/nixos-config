@@ -225,8 +225,8 @@ keys = [
     Key([mod], "a", lazy.spawn("rofi -show window"), desc="Show window switcher"),
     Key([mod], "s", lazy.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard"), desc="Show clipboard history"),
     Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn a filemanager"),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +10%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 10%-")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-")),
 
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
@@ -235,6 +235,7 @@ keys = [
     # Window resizing
     Key([mod], "equal", resize_window_larger, desc="Increase window size"),
     Key([mod], "minus", resize_window_smaller, desc="Decrease window size"),
+    Key([mod, "shift"], "s", lazy.spawn("maim -s | xclip -selection clipboard -t image/png"), desc="Screenshot to clipboard"),
 
 ]
 

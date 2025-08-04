@@ -25,6 +25,7 @@ in
     ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
     ../../programs/clipman.nix
+    ../../programs/screenshot.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
