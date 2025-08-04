@@ -53,16 +53,15 @@ end
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
-function notify
-    set input $argv[1]
-    if not test -z $input
-        zellij pipe "zjstatus::notify::$input"
-    end
-end
-
 direnv hook fish | source
 
 # uv
 fish_add_path "/home/hippo/.local/bin"
 
 atuin init fish --disable-up-arrow | source
+
+if status is-interactive
+    if not set -q ZELLIJ
+        zellij attach -c default
+    end
+end
