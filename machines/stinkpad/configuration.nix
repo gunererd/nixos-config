@@ -24,6 +24,7 @@ in
     ../../programs/dolphin.nix
     ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
+    ../../programs/clipman.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
@@ -76,6 +77,7 @@ in
       displayManager.sessionCommands = ''
       xwallpaper --zoom ${../../wallpapers/space_mountains.png}
       xset r rate 200 35 &
+      greenclip daemon &
     '';
     };
   };

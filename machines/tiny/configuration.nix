@@ -20,6 +20,7 @@ in
     ../../programs/helix.nix
     ../../programs/picom.nix
     ../../programs/git.nix
+    ../../programs/clipman.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
@@ -58,6 +59,7 @@ in
       displayManager.sessionCommands = ''
       xwallpaper --zoom ${../../wallpapers/eyes.png}
       xset r rate 200 35 &
+      greenclip daemon &
     '';
     };
   };
