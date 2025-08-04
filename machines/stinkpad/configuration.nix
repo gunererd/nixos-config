@@ -22,6 +22,7 @@ in
     ../../programs/git.nix
     ../../programs/zellij.nix
     ../../programs/dolphin.nix
+    ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
