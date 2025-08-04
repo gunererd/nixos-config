@@ -21,6 +21,7 @@ in
     ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/zellij.nix
+    ../../programs/dolphin.nix
     ../../programs/claude-code.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
