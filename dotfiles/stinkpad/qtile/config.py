@@ -33,6 +33,10 @@ from libqtile import hook
 mod = "mod4"
 terminal = guess_terminal()
 
+# Floating window stacking system
+floating_stacks = {}  # Dict to store stacked floating windows
+stackable_windows = set()  # Windows marked as stackable
+
 @lazy.function
 def bring_or_spawn_alacritty(qtile):
     """Bring existing alacritty to current group or spawn new one"""
@@ -47,6 +51,65 @@ def bring_or_spawn_alacritty(qtile):
                 return
     # No alacritty found, spawn new one
     qtile.spawn("alacritty")
+
+@lazy.function
+def resize_window_larger(qtile):
+    """Increase window size (floating only)"""
+    window = qtile.current_window
+    if window.floating:
+        # Increase floating window size by 100px in each dimension, centered
+        width, height = window.width, window.height
+        x, y = window.x, window.y
+        new_width = width + 100
+        new_height = height + 100
+        # Move window to keep it centered
+        new_x = x - 50
+        new_y = y - 50
+        window.cmd_set_size_floating(new_width, new_height)
+        window.cmd_set_position_floating(new_x, new_y)
+
+@lazy.function 
+def resize_window_smaller(qtile):
+    """Decrease window size (floating only)"""
+    window = qtile.current_window
+    if window.floating:
+        # Decrease floating window size by 100px in each dimension, centered
+        width, height = window.width, window.height
+        x, y = window.x, window.y
+        new_width = max(200, width - 100)  # Minimum 200px width
+        new_height = max(150, height - 100)  # Minimum 150px height
+        # Move window to keep it centered
+        width_diff = width - new_width
+        height_diff = height - new_height
+        new_x = x + width_diff // 2
+        new_y = y + height_diff // 2
+        window.cmd_set_size_floating(new_width, new_height)
+        window.cmd_set_position_floating(new_x, new_y)
+
+@lazy.function
+def toggle_floating_centered(qtile):
+    """Toggle floating and center/resize window if going to floating"""
+    window = qtile.current_window
+    was_floating = window.floating
+    window.cmd_toggle_floating()
+    
+    # If window just became floating, center and resize it
+    if not was_floating and window.floating:
+        # Get screen dimensions
+        screen = qtile.current_screen
+        screen_width = screen.width
+        screen_height = screen.height
+        
+        # Default floating window size (80% of screen)
+        default_width = int(screen_width * 0.8)
+        default_height = int(screen_height * 0.8)
+        
+        # Center position
+        center_x = (screen_width - default_width) // 2
+        center_y = (screen_height - default_height) // 2
+        
+        window.cmd_set_size_floating(default_width, default_height)
+        window.cmd_set_position_floating(center_x, center_y)
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -90,7 +153,7 @@ keys = [
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
     ),
-    Key([mod], "v", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key([mod], "v", toggle_floating_centered, desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Key([mod], "space", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
@@ -103,6 +166,9 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
 
+    # Window resizing
+    Key([mod], "equal", resize_window_larger, desc="Increase window size"),
+    Key([mod], "minus", resize_window_smaller, desc="Decrease window size"),
 
 ]
 
