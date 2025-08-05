@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # System-wide fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
-  ];
-
   # Convert home.packages to system packages
   environment.systemPackages = with pkgs; [
     # Core system utilities
@@ -37,7 +32,4 @@
     atuin
     direnv
   ];
-  
-  # System-wide font configuration
-  fonts.fontconfig.enable = true;
 } 

@@ -28,6 +28,7 @@ in
     ../../programs/screenshot.nix
     ../../programs/image-viewer.nix
     ../../programs/docker.nix
+    ../../programs/fonts.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 
