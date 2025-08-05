@@ -22,6 +22,10 @@ in
     ../../programs/git.nix
     ../../programs/clipman.nix
     ../../programs/docker.nix
+    ../../programs/themes.nix
+    ../../programs/icons.nix
+    ../../programs/fonts.nix
+    ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 

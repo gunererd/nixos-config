@@ -28,7 +28,12 @@ in
     ../../programs/screenshot.nix
     ../../programs/image-viewer.nix
     ../../programs/docker.nix
+    ../../programs/pdf-reader.nix
+    ../../programs/archive-manager.nix
+    ../../programs/themes.nix
+    ../../programs/icons.nix
     ../../programs/fonts.nix
+    ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
 

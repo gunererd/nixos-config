@@ -33,6 +33,5 @@
     direnv
     
     # GUI tools
-    nwg-look   # GTK theme configuration
   ];
 } 
