@@ -70,8 +70,6 @@ in
   # Sound settings  
   services.pipewire.enable = false;
   hardware.pulseaudio.enable = true;
-  hardware.alsa.enable = true;
-  services.pulseaudio.enable = lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     pulseaudio
