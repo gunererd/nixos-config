@@ -31,5 +31,8 @@
     fzf        # Fuzzy finder
     atuin
     direnv
+    
+    # GUI tools
+    nwg-look   # GTK theme configuration
   ];
 } 
