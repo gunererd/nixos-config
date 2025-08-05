@@ -30,6 +30,7 @@ in
     ../../programs/docker.nix
     ../../programs/pdf-reader.nix
     ../../programs/archive-manager.nix
+    ../../programs/dua.nix
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
