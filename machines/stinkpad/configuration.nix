@@ -86,6 +86,7 @@ in
       dpi = 120;
       xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
       displayManager.sessionCommands = ''
+      xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
       xwallpaper --zoom ${../../wallpapers/space_mountains.png}
       xset r rate 200 35 &
       greenclip daemon &
