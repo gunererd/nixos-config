@@ -42,19 +42,21 @@ stackable_windows = set()  # Windows marked as stackable
 draggable_windows = set()  # Set to store window IDs that can be dragged/resized
 
 @lazy.function
-def bring_or_spawn_alacritty(qtile):
-    """Bring existing alacritty to current group or spawn new one"""
+def bring_or_spawn_terminal(qtile):
+    """Bring existing terminal to current group or spawn new one"""
+    terminal_name = terminal.capitalize()  # Convert "alacritty" to "Alacritty"
+    
     for group in qtile.groups:
         for window in group.windows:
-            if window.window.get_wm_class() and "Alacritty" in window.window.get_wm_class():
+            if window.window.get_wm_class() and terminal_name in window.window.get_wm_class():
                 # Move window to current group and focus it
                 window.togroup(qtile.current_group.name)
                 qtile.current_group.focus(window)
                 # Center the window
                 window.cmd_set_position_floating(100, 100)
                 return
-    # No alacritty found, spawn new one
-    qtile.spawn("alacritty")
+    # No terminal found, spawn new one
+    qtile.spawn(terminal)
 
 @lazy.function
 def resize_window_larger(qtile):
@@ -207,7 +209,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", bring_or_spawn_alacritty, desc="Bring or spawn alacritty"),
+    Key([mod], "Return", bring_or_spawn_terminal, desc="Bring or spawn terminal"),
 
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
