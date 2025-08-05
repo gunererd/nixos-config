@@ -8,6 +8,7 @@
     arc-theme
     materia-theme
     numix-gtk-theme
+    whitesur-gtk-theme
   ];
 
   # Enable dconf for GTK settings

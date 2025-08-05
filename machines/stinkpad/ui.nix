@@ -4,18 +4,18 @@
   # GTK and cursor theme configuration (HOW to use themes)
   environment.sessionVariables = {
     # Cursor theme and size for stinkpad
-    XCURSOR_THEME = "Bibata-Modern-Classic";
+    XCURSOR_THEME = "WhiteSur-cursors";
     XCURSOR_SIZE = "48"; # Larger cursor for stinkpad
-    XCURSOR_PATH = lib.mkForce "${pkgs.bibata-cursors}/share/icons";
+    XCURSOR_PATH = lib.mkForce "${pkgs.whitesur-cursors}/share/icons";
     
     # GTK theme defaults
-    GTK_THEME = "Adwaita:dark";
+    GTK_THEME = "WhiteSur-Dark";
   };
 
   # X11 resources for cursor consistency across all applications
   # This ensures Firefox, Qt apps, and other non-GTK apps use the correct cursor
   environment.etc."X11/Xresources".text = ''
-    Xcursor.theme: Bibata-Modern-Classic
+    Xcursor.theme: WhiteSur-cursors
     Xcursor.size: 48
   '';
 
@@ -23,18 +23,18 @@
   environment.etc = {
     "gtk-3.0/settings.ini".text = ''
       [Settings]
-      gtk-theme-name=Adwaita
-      gtk-icon-theme-name=Papirus-Dark
-      gtk-cursor-theme-name=Bibata-Modern-Classic
+      gtk-theme-name=WhiteSur-Dark
+      gtk-icon-theme-name=WhiteSur-dark
+      gtk-cursor-theme-name=WhiteSur-cursors
       gtk-cursor-theme-size=48
       gtk-application-prefer-dark-theme=true
     '';
     
     "gtk-4.0/settings.ini".text = ''
       [Settings]
-      gtk-theme-name=Adwaita
-      gtk-icon-theme-name=Papirus-Dark
-      gtk-cursor-theme-name=Bibata-Modern-Classic
+      gtk-theme-name=WhiteSur-Dark
+      gtk-icon-theme-name=WhiteSur-dark
+      gtk-cursor-theme-name=WhiteSur-cursors
       gtk-cursor-theme-size=48
       gtk-application-prefer-dark-theme=true
     '';

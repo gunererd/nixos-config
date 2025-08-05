@@ -8,6 +8,7 @@
     numix-icon-theme
     adwaita-icon-theme
     hicolor-icon-theme
+    whitesur-icon-theme
     
     # Icon fonts
     font-awesome
@@ -18,6 +19,7 @@
     vanilla-dmz
     capitaine-cursors
     bibata-cursors
+    whitesur-cursors
   ];
 
 }
