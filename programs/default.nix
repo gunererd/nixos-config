@@ -31,6 +31,8 @@
     fzf        # Fuzzy finder
     atuin
     direnv
+    jq         # JSON processor
+    httpie     # HTTP client
     
     # GUI tools
   ];
