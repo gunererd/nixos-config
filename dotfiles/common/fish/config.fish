@@ -32,17 +32,17 @@ alias n="nnn -deAUH"
 #     zellij action write-chars "cd $PWD && nnn"(echo -e "\r")
 # end
 
-function y
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
-    if test -s "$tmp"
-        set cwd (cat -- "$tmp")
-        if test -n "$cwd" -a "$cwd" != "$PWD"
-            builtin cd -- "$cwd"
-        end
-    end
-    rm -f -- "$tmp"
-end
+# function y
+#     set tmp (mktemp -t "yazi-cwd.XXXXXX")
+#     yazi $argv --cwd-file="$tmp"
+#     if test -s "$tmp"
+#         set cwd (cat -- "$tmp")
+#         if test -n "$cwd" -a "$cwd" != "$PWD"
+#             builtin cd -- "$cwd"
+#         end
+#     end
+#     rm -f -- "$tmp"
+# end
 
 zoxide init --cmd cd fish | source
 
@@ -54,9 +54,6 @@ set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
 direnv hook fish | source
-
-# uv
-fish_add_path "/home/hippo/.local/bin"
 
 atuin init fish --disable-up-arrow | source
 
