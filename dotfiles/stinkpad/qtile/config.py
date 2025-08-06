@@ -368,10 +368,24 @@ def set_floating_by_default(window):
     with open("/tmp/qtile_debug.log", "a") as f:
         f.write(f"New window {window.wid} added to draggable set: {draggable_windows}\n")
     
-    # Set specific size for certain apps
-    if window.window.get_wm_class() and window.window.get_wm_class()[0] in floating_classes:
-        window.cmd_set_size_floating(1600, 1000)  # Width x Height in pixels
-        window.cmd_set_position_floating(100, 100)  # Optional: set position
+    # Get screen dimensions and set sensible default size
+    screen = qtile.current_screen
+    screen_width = screen.width
+    screen_height = screen.height
+    
+    # Default size: 16:10 aspect ratio, 80% of screen width
+    default_width = int(screen_width * 0.8)
+    default_height = int(default_width / 1.6)  # 16:10 aspect ratio
+    
+    # Center the window
+    center_x = (screen_width - default_width) // 2
+    center_y = (screen_height - default_height) // 2
+    
+    with open("/tmp/qtile_debug.log", "a") as f:
+        f.write(f"Setting window {window.wid} size to {default_width}x{default_height} (screen: {screen_width}x{screen_height})\n")
+    
+    window.cmd_set_size_floating(default_width, default_height)
+    window.cmd_set_position_floating(center_x, center_y)
 
 @hook.subscribe.client_focus
 def maintain_float_on_top(window):
