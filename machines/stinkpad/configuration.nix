@@ -37,6 +37,7 @@ in
     ../../programs/fonts.nix
     ../../programs/sddm.nix
     ../../programs/betterlockscreen.nix
+    ../../programs/opensnitch.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
@@ -52,7 +53,7 @@ in
   };
 
   networking = {
-    firewall.enable = false;
+    firewall.enable = true;
     hostName = hostname;
     networkmanager = {
       enable = true;

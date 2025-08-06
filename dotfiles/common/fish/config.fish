@@ -20,9 +20,9 @@ alias l="eza -la"
 alias lg="lazygit -ucf ~/.config/lazygit/config.yml"
 alias vim="nvim"
 alias helix="hx"
+alias h="hx"
 alias b="btop"
 alias tm="task-master"
-alias n="nnn -deAUH"
 
 # function nn
 #     zellij action new-tab
