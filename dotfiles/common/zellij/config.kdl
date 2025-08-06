@@ -451,6 +451,10 @@ default_shell "fish"
 //   - false
 // 
 pane_frames false
+pane_frames {
+    prompt_to_resume_pane false
+}
+
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -533,14 +537,14 @@ attach_to_session true
 //   - true (default)
 //   - false
 // 
-// session_serialization false
+session_serialization false
  
 // Whether pane viewports are serialized along with the session, default is false
 // Options:
 //   - true
 //   - false (default)
 // 
-// serialize_pane_viewport false
+serialize_pane_viewport false
  
 // Scrollback lines to serialize along with the pane viewport when serializing sessions, 0
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
