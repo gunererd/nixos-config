@@ -34,6 +34,8 @@ in
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
+    ../../programs/sddm.nix
+    ../../programs/betterlockscreen.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];

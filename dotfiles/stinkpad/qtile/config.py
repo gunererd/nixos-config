@@ -227,6 +227,7 @@ keys = [
     Key([mod], "a", lazy.spawn("rofi -show window"), desc="Show window switcher"),
     Key([mod], "s", lazy.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard"), desc="Show clipboard history"),
     Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn a filemanager"),
+    Key([mod], "x", lazy.spawn("i3lock-fancy -g"), desc="Lock screen with live desktop blur"),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-")),
 
