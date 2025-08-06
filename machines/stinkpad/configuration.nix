@@ -38,6 +38,7 @@ in
     ../../programs/sddm.nix
     ../../programs/betterlockscreen.nix
     ../../programs/opensnitch.nix
+    ../../programs/network-system-utilities.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
