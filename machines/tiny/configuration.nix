@@ -21,6 +21,7 @@ in
     ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/clipman.nix
+    ../../programs/lsp.nix
     ../../programs/docker.nix
     ../../programs/themes.nix
     ../../programs/icons.nix

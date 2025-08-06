@@ -25,6 +25,7 @@ in
     ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
     ../../programs/clipman.nix
+    ../../programs/lsp.nix
     ../../programs/screenshot.nix
     ../../programs/image-viewer.nix
     ../../programs/docker.nix
