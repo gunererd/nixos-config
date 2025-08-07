@@ -31,15 +31,87 @@ from libqtile.utils import guess_terminal
 from libqtile import hook
 from libqtile.log_utils import logger
 
+# Configuration constants
+SCREEN_WIDTH_RATIO = 0.8          # Default window width as percentage of screen
+ASPECT_RATIO = 1.6                # Default window aspect ratio (16:10)
+RESIZE_INCREMENT = 100            # Pixels to resize by
+MIN_WINDOW_WIDTH = 200            # Minimum window width
+MIN_WINDOW_HEIGHT = 150           # Minimum window height
+DEBUG_LOG_FILE = "/tmp/qtile_debug.log"
+
 mod = "mod4"
 terminal = guess_terminal()
 
-# Floating window stacking system
-floating_stacks = {}  # Dict to store stacked floating windows
-stackable_windows = set()  # Windows marked as stackable
-
 # Draggable windows tracking
 draggable_windows = set()  # Set to store window IDs that can be dragged/resized
+
+# Utility functions
+def _debug_log(message):
+    """Write debug message to log file"""
+    with open(DEBUG_LOG_FILE, "a") as f:
+        f.write(f"{message}\n")
+
+def _calculate_window_dimensions(screen):
+    """Calculate default window size and position for screen"""
+    screen_width = screen.width
+    screen_height = screen.height
+    
+    # Default size: SCREEN_WIDTH_RATIO of screen width, ASPECT_RATIO aspect ratio
+    default_width = int(screen_width * SCREEN_WIDTH_RATIO)
+    default_height = int(default_width / ASPECT_RATIO)
+    
+    # Center position
+    center_x = (screen_width - default_width) // 2
+    center_y = (screen_height - default_height) // 2
+    
+    return default_width, default_height, center_x, center_y
+
+def _center_and_resize_window(window, width, height):
+    """Center window and set to specified size"""
+    window.cmd_set_size_floating(width, height)
+    screen = window.qtile.current_screen
+    center_x = (screen.width - width) // 2
+    center_y = (screen.height - height) // 2
+    window.cmd_set_position_floating(center_x, center_y)
+
+def _add_draggable(window):
+    """Add window to draggable set with debug logging"""
+    draggable_windows.add(window.wid)
+    _debug_log(f"Added window {window.wid} to draggable set: {draggable_windows}")
+
+def _remove_draggable(window):
+    """Remove window from draggable set with debug logging"""
+    draggable_windows.discard(window.wid)
+    _debug_log(f"Removed window {window.wid} from draggable set: {draggable_windows}")
+
+def _resize_window_centered(window, size_change):
+    """Resize window by size_change pixels, keeping it centered"""
+    if not window.floating:
+        return
+    
+    current_width, current_height = window.width, window.height
+    current_x, current_y = window.x, window.y
+    
+    # Calculate new dimensions with minimums
+    if size_change > 0:
+        # Growing
+        new_width = current_width + size_change
+        new_height = current_height + size_change
+        # Move window to keep centered
+        new_x = current_x - size_change // 2
+        new_y = current_y - size_change // 2
+    else:
+        # Shrinking
+        new_width = max(MIN_WINDOW_WIDTH, current_width + size_change)
+        new_height = max(MIN_WINDOW_HEIGHT, current_height + size_change)
+        # Move window to keep centered
+        width_diff = current_width - new_width
+        height_diff = current_height - new_height
+        new_x = current_x + width_diff // 2
+        new_y = current_y + height_diff // 2
+    
+    window.cmd_set_size_floating(new_width, new_height)
+    window.cmd_set_position_floating(new_x, new_y)
 
 @lazy.function
 def bring_or_spawn_terminal(qtile):
@@ -52,26 +124,18 @@ def bring_or_spawn_terminal(qtile):
                 # Move window to current group and focus it
                 window.togroup(qtile.current_group.name)
                 qtile.current_group.focus(window)
-                # Add to draggable windows set since it's floating
-                draggable_windows.add(window.wid)
-                with open("/tmp/qtile_debug.log", "a") as f:
-                    f.write(f"Brought terminal {window.wid} to current group, added to draggable set: {draggable_windows}\n")
                 
-                # Get screen dimensions and set sensible size
-                screen = qtile.current_screen
-                screen_width = screen.width
-                screen_height = screen.height
+                # Ensure window is floating
+                if not window.floating:
+                    window.cmd_toggle_floating()
                 
-                # Default size: 80% of screen width, 16:10 aspect ratio
-                default_width = int(screen_width * 0.8)
-                default_height = int(default_width / 1.6)
+                # Add to draggable windows set and resize using utilities
+                _add_draggable(window)
+                _debug_log(f"Brought terminal {window.wid} to current group")
                 
-                # Center the window
-                center_x = (screen_width - default_width) // 2
-                center_y = (screen_height - default_height) // 2
-                
-                window.cmd_set_size_floating(default_width, default_height)
-                window.cmd_set_position_floating(center_x, center_y)
+                # Calculate dimensions and resize window
+                width, height, x, y = _calculate_window_dimensions(qtile.current_screen)
+                _center_and_resize_window(window, width, height)
                 return
     # No terminal found, spawn new one
     qtile.spawn(terminal)
@@ -80,85 +144,43 @@ def bring_or_spawn_terminal(qtile):
 def resize_window_larger(qtile):
     """Increase window size (floating only)"""
     window = qtile.current_window
-    if window.floating:
-        # Increase floating window size by 100px in each dimension, centered
-        width, height = window.width, window.height
-        x, y = window.x, window.y
-        new_width = width + 100
-        new_height = height + 100
-        # Move window to keep it centered
-        new_x = x - 50
-        new_y = y - 50
-        window.cmd_set_size_floating(new_width, new_height)
-        window.cmd_set_position_floating(new_x, new_y)
+    _resize_window_centered(window, RESIZE_INCREMENT)
 
 @lazy.function 
 def resize_window_smaller(qtile):
     """Decrease window size (floating only)"""
     window = qtile.current_window
-    if window.floating:
-        # Decrease floating window size by 100px in each dimension, centered
-        width, height = window.width, window.height
-        x, y = window.x, window.y
-        new_width = max(200, width - 100)  # Minimum 200px width
-        new_height = max(150, height - 100)  # Minimum 150px height
-        # Move window to keep it centered
-        width_diff = width - new_width
-        height_diff = height - new_height
-        new_x = x + width_diff // 2
-        new_y = y + height_diff // 2
-        window.cmd_set_size_floating(new_width, new_height)
-        window.cmd_set_position_floating(new_x, new_y)
+    _resize_window_centered(window, -RESIZE_INCREMENT)
 
-class DragFloatingWindow:
-    """Custom drag class that only works on draggable windows"""
-    def __init__(self):
-        self.drag_handler = lazy.window.set_position_floating()
+class RestrictedFloatingHandler:
+    """Generic handler class that only works on draggable windows"""
+    def __init__(self, handler, action_name):
+        self.handler = handler
+        self.action_name = action_name
         # Copy necessary attributes from the original handler
-        self.selectors = self.drag_handler.selectors
-        self.name = self.drag_handler.name
-        self.args = self.drag_handler.args
-        self.kwargs = self.drag_handler.kwargs
+        self.selectors = handler.selectors
+        self.name = handler.name
+        self.args = handler.args
+        self.kwargs = handler.kwargs
     
     def check(self, qtile):
         window = qtile.current_window
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Drag check: window {window.wid if window else None}, in set: {window.wid in draggable_windows if window else False}, set: {draggable_windows}\n")
+        _debug_log(f"{self.action_name} check: window {window.wid if window else None}, in set: {window.wid in draggable_windows if window else False}")
         return window and window.wid in draggable_windows
     
     def __call__(self, qtile, *args, **kwargs):
         window = qtile.current_window
         if window and window.wid in draggable_windows:
-            with open("/tmp/qtile_debug.log", "a") as f:
-                f.write(f"Allowing drag for window {window.wid}\n")
-            return self.drag_handler(qtile, *args, **kwargs)
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Blocking drag for window {window.wid if window else None}\n")
+            _debug_log(f"Allowing {self.action_name.lower()} for window {window.wid}")
+            return self.handler(qtile, *args, **kwargs)
+        _debug_log(f"Blocking {self.action_name.lower()} for window {window.wid if window else None}")
 
-class ResizeFloatingWindow:
-    """Custom resize class that only works on draggable windows"""
-    def __init__(self):
-        self.resize_handler = lazy.window.set_size_floating()
-        # Copy necessary attributes from the original handler
-        self.selectors = self.resize_handler.selectors
-        self.name = self.resize_handler.name
-        self.args = self.resize_handler.args
-        self.kwargs = self.resize_handler.kwargs
-    
-    def check(self, qtile):
-        window = qtile.current_window
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Resize check: window {window.wid if window else None}, in set: {window.wid in draggable_windows if window else False}, set: {draggable_windows}\n")
-        return window and window.wid in draggable_windows
-    
-    def __call__(self, qtile, *args, **kwargs):
-        window = qtile.current_window
-        if window and window.wid in draggable_windows:
-            with open("/tmp/qtile_debug.log", "a") as f:
-                f.write(f"Allowing resize for window {window.wid}\n")
-            return self.resize_handler(qtile, *args, **kwargs)
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Blocking resize for window {window.wid if window else None}\n")
+# Convenience functions for creating handlers
+def DragFloatingWindow():
+    return RestrictedFloatingHandler(lazy.window.set_position_floating(), "Drag")
+
+def ResizeFloatingWindow():
+    return RestrictedFloatingHandler(lazy.window.set_size_floating(), "Resize")
 
 @lazy.function
 def toggle_floating_centered(qtile):
@@ -169,31 +191,16 @@ def toggle_floating_centered(qtile):
     
     # Update draggable windows set
     if window.floating:
-        draggable_windows.add(window.wid)
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Toggle: Added window {window.wid} to draggable set: {draggable_windows}\n")
+        _add_draggable(window)
+        _debug_log(f"Toggle: Window {window.wid} now floating")
     else:
-        draggable_windows.discard(window.wid)
-        with open("/tmp/qtile_debug.log", "a") as f:
-            f.write(f"Toggle: Removed window {window.wid} from draggable set: {draggable_windows}\n")
+        _remove_draggable(window)
+        _debug_log(f"Toggle: Window {window.wid} now tiled")
     
     # If window just became floating, center and resize it
     if not was_floating and window.floating:
-        # Get screen dimensions
-        screen = qtile.current_screen
-        screen_width = screen.width
-        screen_height = screen.height
-        
-        # Default floating window size (80% of screen)
-        default_width = int(screen_width * 0.8)
-        default_height = int(screen_height * 0.8)
-        
-        # Center position
-        center_x = (screen_width - default_width) // 2
-        center_y = (screen_height - default_height) // 2
-        
-        window.cmd_set_size_floating(default_width, default_height)
-        window.cmd_set_position_floating(center_x, center_y)
+        width, height, x, y = _calculate_window_dimensions(qtile.current_screen)
+        _center_and_resize_window(window, width, height)
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -381,29 +388,14 @@ def set_floating_by_default(window):
     window.toggle_floating()
     window.bring_to_front()  # Keep floating windows on top
     
-    # Add to draggable windows set since it's now floating
-    draggable_windows.add(window.wid)
-    with open("/tmp/qtile_debug.log", "a") as f:
-        f.write(f"New window {window.wid} added to draggable set: {draggable_windows}\n")
+    # Add to draggable windows set and set default size using utilities
+    _add_draggable(window)
+    _debug_log(f"New window {window.wid} floated by default")
     
-    # Get screen dimensions and set sensible default size
-    screen = qtile.current_screen
-    screen_width = screen.width
-    screen_height = screen.height
-    
-    # Default size: 16:10 aspect ratio, 80% of screen width
-    default_width = int(screen_width * 0.8)
-    default_height = int(default_width / 1.6)  # 16:10 aspect ratio
-    
-    # Center the window
-    center_x = (screen_width - default_width) // 2
-    center_y = (screen_height - default_height) // 2
-    
-    with open("/tmp/qtile_debug.log", "a") as f:
-        f.write(f"Setting window {window.wid} size to {default_width}x{default_height} (screen: {screen_width}x{screen_height})\n")
-    
-    window.cmd_set_size_floating(default_width, default_height)
-    window.cmd_set_position_floating(center_x, center_y)
+    # Calculate dimensions and resize window
+    width, height, x, y = _calculate_window_dimensions(qtile.current_screen)
+    _debug_log(f"Setting window {window.wid} size to {width}x{height}")
+    _center_and_resize_window(window, width, height)
 
 @hook.subscribe.client_focus
 def maintain_float_on_top(window):
@@ -419,6 +411,5 @@ def maintain_float_on_top(window):
 @hook.subscribe.client_killed
 def cleanup_draggable_windows(window):
     # Remove window from draggable set when it's closed
-    draggable_windows.discard(window.wid)
-    logger.info(f"Window {window.wid} killed, removed from draggable set: {draggable_windows}")
+    _remove_draggable(window)
 
