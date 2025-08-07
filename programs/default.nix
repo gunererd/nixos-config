@@ -34,6 +34,12 @@
     jq         # JSON processor
     httpie     # HTTP client
     
+    # Backend development tools
+    ctop       # Container monitoring
+    lazydocker # Docker terminal UI
+    just       # Command runner
+    air        # Go live reload
+    
     # GUI tools
   ];
 } 

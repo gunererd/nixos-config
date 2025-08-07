@@ -52,8 +52,26 @@ def bring_or_spawn_terminal(qtile):
                 # Move window to current group and focus it
                 window.togroup(qtile.current_group.name)
                 qtile.current_group.focus(window)
+                # Add to draggable windows set since it's floating
+                draggable_windows.add(window.wid)
+                with open("/tmp/qtile_debug.log", "a") as f:
+                    f.write(f"Brought terminal {window.wid} to current group, added to draggable set: {draggable_windows}\n")
+                
+                # Get screen dimensions and set sensible size
+                screen = qtile.current_screen
+                screen_width = screen.width
+                screen_height = screen.height
+                
+                # Default size: 80% of screen width, 16:10 aspect ratio
+                default_width = int(screen_width * 0.8)
+                default_height = int(default_width / 1.6)
+                
                 # Center the window
-                window.cmd_set_position_floating(100, 100)
+                center_x = (screen_width - default_width) // 2
+                center_y = (screen_height - default_height) // 2
+                
+                window.cmd_set_size_floating(default_width, default_height)
+                window.cmd_set_position_floating(center_x, center_y)
                 return
     # No terminal found, spawn new one
     qtile.spawn(terminal)
