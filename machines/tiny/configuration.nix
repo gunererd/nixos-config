@@ -20,13 +20,24 @@ in
     ../../programs/helix.nix
     ../../programs/picom.nix
     ../../programs/git.nix
+    ../../programs/zellij.nix
+    ../../programs/dolphin.nix
+    ../../programs/brightnessctl.nix
     ../../programs/clipman.nix
     ../../programs/lsp.nix
+    ../../programs/screenshot.nix
+    ../../programs/image-viewer.nix
     ../../programs/docker.nix
+    ../../programs/pdf-reader.nix
+    ../../programs/archive-manager.nix
+    ../../programs/dua.nix
+    ../../programs/opensnitch.nix
+    ../../programs/network-system-utilities.nix
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
     ../../programs/sddm.nix
+    ../../programs/claude-code.nix
     ../../programs/betterlockscreen.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
@@ -43,7 +54,7 @@ in
   };
 
   networking = {
-    firewall.enable = false;
+    firewall.enable = true;
     hostName = hostname;
     networkmanager = {
       enable = true;
@@ -54,9 +65,18 @@ in
     QT_SCALE_FACTOR = "1.25";
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1.25";
+    XCURSOR_SIZE = "24";
   };
 
   hardware.acpilight.enable = true;
+
+  # Sound settings  
+  services.pipewire.enable = false;
+  hardware.pulseaudio.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+  ];
 
   services = {
     acpid.enable = true;
@@ -65,6 +85,7 @@ in
       dpi = 120;
       xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
       displayManager.sessionCommands = ''
+      xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
       xwallpaper --zoom ${../../wallpapers/space_mountains.png}
       xset r rate 200 35 &
       greenclip daemon &
