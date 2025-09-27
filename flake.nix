@@ -32,6 +32,17 @@
         ];
       };
 
+      vm = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./machines/vm/configuration.nix
+          ./machines/vm/hardware-configuration.nix
+
+          { nixpkgs.config.allowUnfree = true; }
+          
+        ];
+      };
+
     };
 
 
