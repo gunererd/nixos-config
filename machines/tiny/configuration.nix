@@ -39,6 +39,7 @@ in
     ../../programs/sddm.nix
     ../../programs/claude-code.nix
     ../../programs/betterlockscreen.nix
+    ../../programs/dunst.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];

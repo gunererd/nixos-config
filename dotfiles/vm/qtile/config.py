@@ -253,12 +253,12 @@ keys = [
     Key([mod], "s", lazy.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard"), desc="Show clipboard history"),
     Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn a filemanager"),
     Key([mod], "x", lazy.spawn("i3lock-fancy -g"), desc="Lock screen with live desktop blur"),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("/home/hippo/nixos-config/scripts/notifications/brightness.sh up"), desc="Increase brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("/home/hippo/nixos-config/scripts/notifications/brightness.sh down"), desc="Decrease brightness"),
 
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/hippo/nixos-config/scripts/notifications/volume.sh up"), desc="Increase volume"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("/home/hippo/nixos-config/scripts/notifications/volume.sh down"), desc="Decrease volume"),
+    Key([], "XF86AudioMute", lazy.spawn("/home/hippo/nixos-config/scripts/notifications/volume.sh mute"), desc="Toggle mute"),
 
     # Window resizing
     Key([mod], "equal", resize_window_larger, desc="Increase window size"),

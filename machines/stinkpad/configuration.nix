@@ -39,6 +39,7 @@ in
     ../../programs/betterlockscreen.nix
     ../../programs/opensnitch.nix
     ../../programs/network-system-utilities.nix
+    ../../programs/dunst.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
