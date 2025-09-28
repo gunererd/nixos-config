@@ -4,7 +4,8 @@
   inputs = {
     # NixOS official package source, using the unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
+    zen-browser.url = "github:youwen5/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -34,6 +35,7 @@
 
       vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           ./machines/vm/configuration.nix
           ./machines/vm/hardware-configuration.nix
