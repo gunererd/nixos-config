@@ -332,7 +332,7 @@ mouse = [
     Drag([mod], "Button1", DragFloatingWindow(), start=lazy.window.get_position()),
     Drag([mod], "Button3", ResizeFloatingWindow(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
-    Click([], "Button1", lazy.window.bring_to_front()),
+    # Click([], "Button1", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
