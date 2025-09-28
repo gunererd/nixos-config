@@ -332,12 +332,13 @@ mouse = [
     Drag([mod], "Button1", DragFloatingWindow(), start=lazy.window.get_position()),
     Drag([mod], "Button3", ResizeFloatingWindow(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
+    Click([], "Button1", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 floats_kept_above = True
 cursor_warp = False
 floating_layout = layout.Floating(
@@ -397,16 +398,15 @@ def set_floating_by_default(window):
     _debug_log(f"Setting window {window.wid} size to {width}x{height}")
     _center_and_resize_window(window, width, height)
 
-@hook.subscribe.client_focus
-def maintain_float_on_top(window):
-    # Ensure floating windows stay on top when focused
-    if window.floating:
-        window.bring_to_front()
-    else:
-        # If tiled window is focused, bring all floating windows to front
-        for win in window.group.windows:
-            if win.floating:
-                win.bring_to_front()
+# Removed automatic bring-to-front on focus - only bring to front on click
+# @hook.subscribe.client_focus
+# def maintain_float_on_top(window):
+#     if window.floating:
+#         window.bring_to_front()
+#     else:
+#         for win in window.group.windows:
+#             if win.floating:
+#                 win.bring_to_front()
 
 @hook.subscribe.client_killed
 def cleanup_draggable_windows(window):
