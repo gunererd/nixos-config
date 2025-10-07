@@ -1,0 +1,40 @@
+theme = dark:kanso-ink,light:kanso-pearl
+
+background-opacity = 0.6
+# background-blur = false
+font-size = 10
+font-family="Monaspace Neon"
+
+window-decoration = auto
+gtk-tabs-location = hidden
+confirm-close-surface = false
+
+scrollback-limit = 10000000
+
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
+
+# Keybindings
+# keybind = alt+h=goto_split:left
+# keybind = alt+l=goto_split:right
+# keybind = alt+j=goto_split:down
+# keybind = alt+k=goto_split:up
+
+# keybind = alt+s=toggle_tab_overview
+
+# keybind = ctrl+alt+h=resize_split:left
+# keybind = ctrl+alt+l=resize_split:right
+# keybind = ctrl+alt+j=resize_split:down
+# keybind = ctrl+alt+k=resize_split:up
+# keybind = shift+enter=text:\n
+
+keybind = alt+one=unbind
+keybind = alt+two=unbind
+keybind = alt+three=unbind
+keybind = alt+four=unbind
+keybind = alt+five=unbind
+keybind = alt+six=unbind
+keybind = alt+seven=unbind
+keybind = alt+eight=unbind
+keybind = alt+nine=unbind

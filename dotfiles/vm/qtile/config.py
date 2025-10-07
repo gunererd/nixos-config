@@ -30,6 +30,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
 from libqtile.log_utils import logger
+import subprocess
 
 # Configuration constants
 SCREEN_WIDTH_RATIO = 0.8          # Default window width as percentage of screen
@@ -40,7 +41,7 @@ MIN_WINDOW_HEIGHT = 150           # Minimum window height
 DEBUG_LOG_FILE = "/tmp/qtile_debug.log"
 
 mod = "mod4"
-terminal = guess_terminal()
+terminal = "ghostty" #guess_terminal()
 
 # Draggable windows tracking
 draggable_windows = set()  # Set to store window IDs that can be dragged/resized
@@ -412,4 +413,12 @@ def set_floating_by_default(window):
 def cleanup_draggable_windows(window):
     # Remove window from draggable set when it's closed
     _remove_draggable(window)
+
+@hook.subscribe.startup
+def set_wallpaper():
+    # Set wallpaper on qtile startup/restart
+    try:
+        subprocess.run(["xwallpaper", "--zoom", "/home/hippo/nixos-config/wallpapers/xp2.png"], check=True)
+    except Exception as e:
+        logger.error(f"Failed to set wallpaper: {e}")
 

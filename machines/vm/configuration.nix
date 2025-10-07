@@ -15,6 +15,7 @@ in
     ../../programs/default.nix
     ../../programs/qtile.nix
     ../../programs/alacritty.nix
+    ../../programs/ghostty.nix
     ../../programs/rofi.nix
     # ../../programs/rustdesk.nix
     ../../programs/zed.nix
@@ -97,6 +98,7 @@ in
   environment.systemPackages = with pkgs; [
     pulseaudio
     mesa-demos
+    vulkan-tools
   ];
 
   # systemd.user.services.spice-vdagent = {
@@ -130,7 +132,6 @@ in
       displayManager.sessionCommands = ''
       xrandr --output Virtual-1 --mode 3840x2160
       xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
-      xwallpaper --zoom ${../../wallpapers/xp.jpg}
       xset r rate 200 35 &
       greenclip daemon &
     '';

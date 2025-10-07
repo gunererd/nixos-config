@@ -21,6 +21,7 @@
     # System monitoring
     neofetch
     btop
+    pciutils   # PCI utilities (lspci)
 
     # CLI tools
     eza        # Better ls

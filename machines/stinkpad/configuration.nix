@@ -14,6 +14,7 @@ in
     ../../programs/default.nix
     ../../programs/qtile.nix
     ../../programs/alacritty.nix
+    ../../programs/ghostty.nix
     ../../programs/rofi.nix
     ../../programs/rustdesk.nix
     ../../programs/zed.nix
