@@ -5,6 +5,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+if test "$TERM" = dumb
+    set -gx TERM xterm-256color
+end
+
 set -Ux FLYCTL_INSTALL /home/hippo/.fly
 set -Ux VISUAL hx
 set -Ux EDITOR hx

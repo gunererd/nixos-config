@@ -10,7 +10,6 @@ in
   imports = [
     ./hardware-configuration.nix
     ../../programs/fish.nix
-    ../../programs/firefox.nix
     ../../programs/zen-browser.nix
     ../../programs/default.nix
     ../../programs/qtile.nix
