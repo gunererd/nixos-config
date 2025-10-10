@@ -1,7 +1,7 @@
 # theme = dark:kanso-ink,light:kanso-pearl
 theme = kanso-ink
 
-background-opacity = 0
+background-opacity = 0.9
 background-blur = true
 font-size = 18
 font-family="Monaspace Neon"
@@ -39,3 +39,5 @@ keybind = alt+six=unbind
 keybind = alt+seven=unbind
 keybind = alt+eight=unbind
 keybind = alt+nine=unbind
+
+

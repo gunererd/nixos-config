@@ -147,4 +147,7 @@ in
   # Time zone configuration
   time.timeZone = "Europe/Istanbul";
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
+
 } 

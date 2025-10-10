@@ -17,7 +17,7 @@ set -Ux HELIX_RUNTIME /home/hippo/Repositories/helix/runtime
 set -Ux fish_user_paths /home/hippo/.emacs.d/bin /home/hippo/.config/emacs/bin /home/hippo/go/bin /home/hippo/.dprint $FLYCTL_INSTALL/bin $fish_user_paths ~/.config/zide/bin
 
 alias l="eza -la"
-alias lg="lazygit -ucf ~/.config/lazygit/config.yml"
+alias lg="lazygit"
 alias vim="nvim"
 alias helix="hx"
 alias h="hx"
