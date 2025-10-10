@@ -6,12 +6,12 @@
       fira-code
       fira-code-symbols
       nerd-fonts.fira-code
+      nerd-fonts.caskaydia-mono
       monaspace
       hack-font
       mononoki
       agave
       ibm-plex
-      emacsPackages.ligature-pragmatapro
     ];
     
     fontconfig = {

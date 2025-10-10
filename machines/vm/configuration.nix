@@ -14,7 +14,6 @@ in
     ../../programs/default.nix
     ../../programs/qtile.nix
     ../../programs/alacritty.nix
-    ../../programs/ghostty.nix
     ../../programs/rofi.nix
     # ../../programs/rustdesk.nix
     ../../programs/zed.nix
@@ -68,6 +67,10 @@ in
     GDK_SCALE = "1";
     GDK_DPI_SCALE = "1";
     XCURSOR_SIZE = "48";
+    # Enable Venus Vulkan for VirtIO-GPU
+    MESA_VK_DEVICE_SELECT = "virtio";
+    # Allow Zed to run on emulated GPU
+    ZED_ALLOW_EMULATED_GPU = "1";
   };
 
   # Sound settings  
@@ -92,6 +95,10 @@ in
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      mesa
+      vulkan-loader
+    ];
   };
 
   environment.systemPackages = with pkgs; [

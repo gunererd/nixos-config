@@ -41,7 +41,7 @@ MIN_WINDOW_HEIGHT = 150           # Minimum window height
 DEBUG_LOG_FILE = "/tmp/qtile_debug.log"
 
 mod = "mod4"
-terminal = "ghostty" #guess_terminal()
+terminal = "alacritty" #guess_terminal()
 
 # Draggable windows tracking
 draggable_windows = set()  # Set to store window IDs that can be dragged/resized
