@@ -16,6 +16,7 @@ in
     ../../programs/alacritty.nix
     ../../programs/rofi.nix
     # ../../programs/rustdesk.nix
+    ../../programs/localsend.nix
     ../../programs/zed.nix
     ../../programs/helix.nix
     ../../programs/picom.nix
