@@ -14,6 +14,8 @@ in
     ../../programs/zen-browser.nix
     ../../programs/default.nix
     ../../programs/qtile.nix
+    ../../programs/hyprland.nix
+    ../../programs/noctalia.nix
     ../../programs/alacritty.nix
     ../../programs/ghostty.nix
     ../../programs/rofi.nix
