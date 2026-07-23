@@ -12,13 +12,12 @@ in
     ../../programs/fish.nix
     ../../programs/firefox.nix
     ../../programs/default.nix
-    ../../programs/qtile.nix
+    ../../programs/hyprland.nix
+    ../../programs/noctalia.nix
     ../../programs/alacritty.nix
-    ../../programs/rofi.nix
     ../../programs/rustdesk.nix
     ../../programs/zed.nix
     ../../programs/helix.nix
-    ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/zellij.nix
     ../../programs/dolphin.nix
@@ -36,10 +35,8 @@ in
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
-    ../../programs/sddm.nix
+    ../../programs/greetd.nix
     ../../programs/claude-code.nix
-    ../../programs/betterlockscreen.nix
-    ../../programs/dunst.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
@@ -63,10 +60,7 @@ in
   };
   
   environment.sessionVariables = {
-    QT_SCALE_FACTOR = "1.25";
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1.25";
-    XCURSOR_SIZE = "24";
+    QT_QPA_PLATFORM = "wayland;xcb";
   };
 
   hardware.acpilight.enable = true;
@@ -81,17 +75,6 @@ in
 
   services = {
     acpid.enable = true;
-    xserver = {
-      enable = true;
-      dpi = 120;
-      xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
-      displayManager.sessionCommands = ''
-      xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
-      xwallpaper --zoom ${../../wallpapers/space_mountains.png}
-      xset r rate 200 35 &
-      greenclip daemon &
-    '';
-    };
   };
 
   # Boot loader configuration
