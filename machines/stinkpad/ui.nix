@@ -12,13 +12,6 @@
     GTK_THEME = "WhiteSur-Dark";
   };
 
-  # X11 resources for cursor consistency across all applications
-  # This ensures Firefox, Qt apps, and other non-GTK apps use the correct cursor
-  environment.etc."X11/Xresources".text = ''
-    Xcursor.theme: WhiteSur-cursors
-    Xcursor.size: 48
-  '';
-
   # System-wide GTK configuration for stinkpad
   environment.etc = {
     "gtk-3.0/settings.ini".text = ''

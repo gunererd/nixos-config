@@ -6,5 +6,10 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true; # let existing X11 apps run under Hyprland
+    withUWSM = true;        # launch via uwsm for a proper systemd/D-Bus session
   };
+
+  # Universal Wayland Session Manager — greetd launches the Hyprland uwsm
+  # session (see programs/greetd.nix).
+  programs.uwsm.enable = true;
 }

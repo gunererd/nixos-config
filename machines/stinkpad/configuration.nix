@@ -13,17 +13,14 @@ in
     ../../programs/firefox.nix
     ../../programs/zen-browser.nix
     ../../programs/default.nix
-    ../../programs/qtile.nix
     ../../programs/hyprland.nix
     ../../programs/noctalia.nix
     ../../programs/alacritty.nix
     ../../programs/ghostty.nix
-    ../../programs/rofi.nix
     ../../programs/rustdesk.nix
     ../../programs/zed.nix
     ../../programs/blueman.nix
     ../../programs/helix.nix
-    ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/zellij.nix
     ../../programs/dolphin.nix
@@ -40,11 +37,9 @@ in
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
-    ../../programs/sddm.nix
-    ../../programs/betterlockscreen.nix
+    ../../programs/greetd.nix
     ../../programs/opensnitch.nix
     ../../programs/network-system-utilities.nix
-    ../../programs/dunst.nix
     ../../programs/beekeeper-studio.nix
     ../../programs/opencode.nix
     ./ui.nix
@@ -102,18 +97,6 @@ in
     udisks2.enable = true;
     gvfs.enable = true;
     acpid.enable = true;
-    xserver = {
-      enable = true;
-      dpi = 120;
-      xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
-      displayManager.sessionCommands = ''
-      xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
-      xwallpaper --zoom ${../../wallpapers/space_mountains.png}
-      xset r rate 200 35 &
-      greenclip daemon &
-      blueman-applet &
-    '';
-    };
   };
 
   # Boot loader configuration
