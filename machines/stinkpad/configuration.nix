@@ -71,10 +71,7 @@ in
   };
   
   environment.sessionVariables = {
-    QT_SCALE_FACTOR = "1";
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1";
-    XCURSOR_SIZE = "48";
+    QT_QPA_PLATFORM = "wayland;xcb";
   };
 
   hardware.acpilight.enable = true;
