@@ -34,8 +34,13 @@ workflow — Noctalia (Quickshell shell) replaces most standalone modules.
       and the X11 Xresources from ui.nix. Shared module FILES kept because
       tiny/vm still import them (qtile/X11); delete them only after migrating
       those machines. All 3 machines dry-build clean.
-      TODO: roll the same changes to `tiny` / `vm`, then delete the dead modules
-      and strip maim/greenclip from screenshot.nix/clipman.nix.
+      `tiny` and `vm` now migrated too (same import swap, X server block +
+      X11-era scale vars removed, `hypr/hyprland.lua` added per host; vm keeps
+      spice-vdagentd/qemuGuest, drops the X11 `spice-vdagent -x` service and
+      sets `WLR_NO_HARDWARE_CURSORS`). All 3 dry-build clean.
+      TODO: boot-test tiny/vm, then delete the now-unused shared modules
+      (qtile/picom/rofi/dunst/betterlockscreen/sddm) and strip
+      maim/greenclip from screenshot.nix/clipman.nix.
 
 ## Modules Noctalia replaces (delete at step 7)
 

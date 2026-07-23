@@ -12,14 +12,13 @@ in
     ../../programs/fish.nix
     ../../programs/zen-browser.nix
     ../../programs/default.nix
-    ../../programs/qtile.nix
+    ../../programs/hyprland.nix
+    ../../programs/noctalia.nix
     ../../programs/alacritty.nix
-    ../../programs/rofi.nix
     # ../../programs/rustdesk.nix
     ../../programs/localsend.nix
     ../../programs/zed.nix
     ../../programs/helix.nix
-    ../../programs/picom.nix
     ../../programs/git.nix
     ../../programs/zellij.nix
     ../../programs/dolphin.nix
@@ -36,11 +35,9 @@ in
     ../../programs/themes.nix
     ../../programs/icons.nix
     ../../programs/fonts.nix
-    ../../programs/sddm.nix
-    ../../programs/betterlockscreen.nix
+    ../../programs/greetd.nix
     ../../programs/opensnitch.nix
     ../../programs/network-system-utilities.nix
-    ../../programs/dunst.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
@@ -64,13 +61,8 @@ in
   };
   
   environment.sessionVariables = {
-    QT_SCALE_FACTOR = "1";
-    GDK_SCALE = "1";
-    GDK_DPI_SCALE = "1";
-    XCURSOR_SIZE = "48";
-    # Enable Venus Vulkan for VirtIO-GPU
+    QT_QPA_PLATFORM = "wayland;xcb";
     MESA_VK_DEVICE_SELECT = "virtio";
-    # Allow Zed to run on emulated GPU
     ZED_ALLOW_EMULATED_GPU = "1";
   };
 
@@ -80,18 +72,6 @@ in
 
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
-
-  systemd.user.services.spice-vdagent = {
-    description = "SPICE user agent";
-    wantedBy = [ "graphical-session.target" ];
-    partOf   = [ "graphical-session.target" ];
-    after    = [ "graphical-session.target" ];
-
-    serviceConfig = {
-      ExecStart = "${pkgs.spice-vdagent}/bin/spice-vdagent -x";
-      Restart = "on-failure";
-    };
-  };
 
   hardware.graphics = {
     enable = true;
@@ -132,17 +112,6 @@ in
 
   services = {
     acpid.enable = true;
-    xserver = {
-      enable = true;
-      dpi = 144;
-      # xkb.options = "altwin:swap_lalt_lwin,ctrl:swapcaps"; 
-      displayManager.sessionCommands = ''
-      xrandr --output Virtual-1 --mode 3840x2160
-      xrdb -merge /etc/X11/Xresources  # Load cursor theme for all X11 apps
-      xset r rate 200 35 &
-      greenclip daemon &
-    '';
-    };
   };
 
   # Boot loader configuration
