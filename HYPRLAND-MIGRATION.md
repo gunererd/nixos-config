@@ -27,20 +27,17 @@ workflow — Noctalia (Quickshell shell) replaces most standalone modules.
       set via `hl.env` in hyprland.lua. Clipboard watcher (`wl-paste --watch
       cliphist store`) autostarted alongside Noctalia.
 - [ ] 6. Rebuild & test — log into Hyprland session; qtile remains if it breaks.
-- [~] 7. Clean up (stinkpad done) — replaced SDDM (X11 greeter) with
+- [x] 7. Clean up (all machines done) — replaced SDDM (X11 greeter) with
       `programs/greetd.nix` (greetd + tuigreet, launches Hyprland directly).
-      Removed stinkpad imports: qtile, picom, rofi, dunst, betterlockscreen,
-      sddm. Removed the `services.xserver` block (X server + sessionCommands)
-      and the X11 Xresources from ui.nix. Shared module FILES kept because
-      tiny/vm still import them (qtile/X11); delete them only after migrating
-      those machines. All 3 machines dry-build clean.
-      `tiny` and `vm` now migrated too (same import swap, X server block +
-      X11-era scale vars removed, `hypr/hyprland.lua` added per host; vm keeps
-      spice-vdagentd/qemuGuest, drops the X11 `spice-vdagent -x` service and
-      sets `WLR_NO_HARDWARE_CURSORS`). All 3 dry-build clean.
-      TODO: boot-test tiny/vm, then delete the now-unused shared modules
-      (qtile/picom/rofi/dunst/betterlockscreen/sddm) and strip
-      maim/greenclip from screenshot.nix/clipman.nix.
+      Removed the qtile/picom/rofi/dunst/betterlockscreen/sddm imports, the
+      `services.xserver` blocks (X server + sessionCommands) and the X11
+      Xresources from ui.nix on all three machines. Per-host
+      `hypr/hyprland.lua` added; vm keeps spice-vdagentd/qemuGuest, drops the
+      X11 `spice-vdagent -x` service and sets `WLR_NO_HARDWARE_CURSORS`.
+      Deleted the now-unused shared modules
+      (qtile/picom/rofi/dunst/betterlockscreen/sddm), the dead qtile dotfiles,
+      and stripped maim/slop/greenclip from screenshot.nix/clipman.nix.
+      stinkpad and tiny boot-tested and working; vm not yet booted.
 
 ## Modules Noctalia replaces (delete at step 7)
 
