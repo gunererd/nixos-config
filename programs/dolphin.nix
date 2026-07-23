@@ -2,19 +2,19 @@
 
 {
   environment.systemPackages = with pkgs; [
-    libsForQt5.dolphin
-    libsForQt5.breeze-icons
-    libsForQt5.breeze-qt5  # Dark theme support
-    libsForQt5.kio-extras
-    libsForQt5.kdegraphics-thumbnailers
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5ct
+    kdePackages.dolphin
+    kdePackages.breeze-icons
+    kdePackages.breeze
+    kdePackages.kio-extras
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.qtstyleplugin-kvantum
+    qt6Packages.qt6ct
   ];
 
   # Make Qt applications follow GTK theme and use dark mode
   environment.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
     QT_STYLE_OVERRIDE = "Breeze";
-    KDE_SESSION_VERSION = "5";  # Enables dark theme for KDE apps
+    KDE_SESSION_VERSION = "6";  # Enables dark theme for KDE 6 apps
   };
-} 
+}

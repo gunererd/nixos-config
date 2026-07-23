@@ -19,7 +19,7 @@
     p7zip
     
     # System monitoring
-    neofetch
+    fastfetch
     btop
     pciutils   # PCI utilities (lspci)
 
@@ -40,7 +40,5 @@
     lazydocker # Docker terminal UI
     just       # Command runner
     air        # Go live reload
-    
-    # GUI tools
   ];
 } 

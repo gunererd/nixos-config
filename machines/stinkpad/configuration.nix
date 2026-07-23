@@ -11,6 +11,7 @@ in
     ./hardware-configuration.nix
     ../../programs/fish.nix
     ../../programs/firefox.nix
+    ../../programs/zen-browser.nix
     ../../programs/default.nix
     ../../programs/qtile.nix
     ../../programs/alacritty.nix
@@ -18,6 +19,7 @@ in
     ../../programs/rofi.nix
     ../../programs/rustdesk.nix
     ../../programs/zed.nix
+    ../../programs/blueman.nix
     ../../programs/helix.nix
     ../../programs/picom.nix
     ../../programs/git.nix
@@ -41,6 +43,8 @@ in
     ../../programs/opensnitch.nix
     ../../programs/network-system-utilities.nix
     ../../programs/dunst.nix
+    ../../programs/beekeeper-studio.nix
+    ../../programs/opencode.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
@@ -53,6 +57,12 @@ in
 
   system = {
     stateVersion = stateVersion;
+  };
+
+  nix.settings = {
+    experimental-features = [
+      "nix-command" "flakes"
+    ];
   };
 
   networking = {
@@ -77,6 +87,7 @@ in
   # Sound settings  
   services.pipewire.enable = false;
   hardware.pulseaudio.enable = true;
+  hardware.bluetooth.enable = true;
 
   environment.systemPackages = with pkgs; [
     pulseaudio
@@ -85,6 +96,9 @@ in
 
 
   services = {
+    blueman.enable = true;
+    udisks2.enable = true;
+    gvfs.enable = true;
     acpid.enable = true;
     xserver = {
       enable = true;
@@ -95,6 +109,7 @@ in
       xwallpaper --zoom ${../../wallpapers/space_mountains.png}
       xset r rate 200 35 &
       greenclip daemon &
+      blueman-applet &
     '';
     };
   };

@@ -13,11 +13,18 @@
 
       stinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           ./machines/stinkpad/configuration.nix
           ./machines/stinkpad/hardware-configuration.nix
 
-          { nixpkgs.config.allowUnfree = true; }
+          { 
+            nixpkgs.config.allowUnfree = true;
+            # TODO: Check for secure builds of beekeeper-studio with newer Electron
+            nixpkgs.config.permittedInsecurePackages = [
+              "beekeeper-studio-5.2.12"
+            ];
+          }
           
         ];
       };
