@@ -35,6 +35,8 @@
     jq         # JSON processor
     httpie     # HTTP client
     yt-dlp     # Video/audio downloader
+    mpv        # Player backend for Noctalia music-search
+    ffmpeg     # Media muxing/transcoding, used by yt-dlp/mpv
     
     # Backend development tools
     ctop       # Container monitoring
