@@ -21,7 +21,7 @@ in
     ../../programs/helix.nix
     ../../programs/git.nix
     ../../programs/zellij.nix
-    ../../programs/dolphin.nix
+    ../../programs/nautilus.nix
     ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
     ../../programs/clipman.nix

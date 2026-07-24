@@ -20,7 +20,7 @@ hl.monitor({
 ---------------------
 
 local terminal    = "alacritty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 
 -------------------
 ---- AUTOSTART ----
@@ -78,6 +78,13 @@ hl.config({
         follow_mouse = 1,
     },
 })
+
+-----------------------
+---- WINDOW RULES ----
+-----------------------
+
+hl.window_rule({ match = { class = "org.gnome.Nautilus" }, float = true })
+hl.window_rule({ match = { class = "imv" }, float = true })
 
 ---------------------
 ---- KEYBINDINGS ----
