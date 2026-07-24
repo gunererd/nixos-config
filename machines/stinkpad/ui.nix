@@ -7,9 +7,6 @@
     XCURSOR_THEME = "WhiteSur-cursors";
     XCURSOR_SIZE = "48"; # Larger cursor for stinkpad
     XCURSOR_PATH = lib.mkForce "${pkgs.whitesur-cursors}/share/icons";
-    
-    # GTK theme defaults
-    GTK_THEME = "WhiteSur-Dark";
   };
 
   # System-wide GTK configuration for stinkpad

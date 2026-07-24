@@ -24,6 +24,10 @@
     KDE_SESSION_VERSION = "6";
   };
 
-  # Enable dconf for GTK settings
-  programs.dconf.enable = true;
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [{
+      settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    }];
+  };
 }
