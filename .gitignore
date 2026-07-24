@@ -1,3 +1,7 @@
+# Noctalia plugin code + per-device plugin settings (e.g. Syncthing API key).
+# Each machine re-downloads enabled plugins from plugins.json on first launch.
+dotfiles/*/noctalia/plugins/
+
 # Python
 __pycache__/
 *.py[cod]
