@@ -56,7 +56,7 @@ hl.config({
         rounding = 8,
     },
     animations = {
-        enabled = true,
+        enabled = false,
     },
     dwindle = {
         preserve_split = true,
@@ -128,7 +128,7 @@ hl.bind(mainMod .. " + minus", hl.dsp.window.resize({ x = -40, y = -40 }))
 
 -- Screenshot: area select to ~/Pictures (qtile used maim -s; grim + slurp on Wayland)
 hl.bind(mainMod .. " + SHIFT + s",
-    hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp)" ~/Pictures/$(date +%Y%m%d-%H%M%S).png']]))
+    hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/$(date +%Y%m%d-%H%M%S).png | wl-copy --type image/png']]))
 
 -- Workspaces 1-9 (qtile groups "123456789")
 for i = 1, 9 do

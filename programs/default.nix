@@ -34,6 +34,7 @@
     direnv
     jq         # JSON processor
     httpie     # HTTP client
+    yt-dlp     # Video/audio downloader
     
     # Backend development tools
     ctop       # Container monitoring

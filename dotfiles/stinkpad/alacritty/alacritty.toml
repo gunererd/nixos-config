@@ -8,7 +8,8 @@ blink_timeout = 0
 
 [font]
 # normal.family = "FiraCode Nerd Font"
-size = 9.0
+normal.family = "CaskaydiaMono NF"
+size = 14.0
 
 [colors]
 draw_bold_text_with_bright_colors = false
