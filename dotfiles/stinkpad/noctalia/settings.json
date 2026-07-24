@@ -256,7 +256,38 @@
                     "id": "plugin:music-search"
                 },
                 {
+                    "defaultSettings": {
+                        "colorHistory": [
+                        ],
+                        "detectedRecorder": "",
+                        "filenameFormat": "",
+                        "gifMaxSeconds": 30,
+                        "installedLangs": [
+                            "eng"
+                        ],
+                        "paletteColors": [
+                        ],
+                        "recordCopyToClipboard": false,
+                        "recordSkipConfirmation": false,
+                        "screenshotPath": "",
+                        "selectedOcrLang": "eng",
+                        "transAvailable": false,
+                        "videoPath": ""
+                    },
                     "id": "plugin:screen-toolkit"
+                },
+                {
+                    "defaultSettings": {
+                        "apiKey": "",
+                        "apiUrl": "",
+                        "configPath": "",
+                        "enabled": true,
+                        "folderIds": [
+                        ],
+                        "pollIntervalMs": 10000,
+                        "verifyTls": false
+                    },
+                    "id": "plugin:syncthing-status"
                 },
                 {
                     "id": "Spacer",
@@ -297,15 +328,6 @@
                     "id": "Battery",
                     "showNoctaliaPerformance": false,
                     "showPowerProfiles": false
-                },
-                {
-                    "id": "plugin:special-workspaces"
-                },
-                {
-                    "id": "plugin:weekly-calendar"
-                },
-                {
-                    "id": "plugin:syncthing-status"
                 }
             ]
         }
