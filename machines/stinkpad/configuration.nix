@@ -40,6 +40,7 @@ in
     ../../programs/fonts.nix
     ../../programs/greetd.nix
     ../../programs/opensnitch.nix
+    ../../programs/syncthing.nix
     ../../programs/network-system-utilities.nix
     ../../programs/beekeeper-studio.nix
     ../../programs/opencode.nix

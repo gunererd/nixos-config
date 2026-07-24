@@ -38,6 +38,7 @@ in
     ../../programs/fonts.nix
     ../../programs/greetd.nix
     ../../programs/opensnitch.nix
+    ../../programs/syncthing.nix
     ../../programs/network-system-utilities.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix

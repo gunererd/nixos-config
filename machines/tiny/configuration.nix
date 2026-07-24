@@ -32,6 +32,7 @@ in
     ../../programs/archive-manager.nix
     ../../programs/dua.nix
     ../../programs/opensnitch.nix
+    ../../programs/syncthing.nix
     ../../programs/network-system-utilities.nix
     ../../programs/themes.nix
     ../../programs/icons.nix
