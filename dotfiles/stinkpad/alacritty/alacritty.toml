@@ -1,5 +1,6 @@
 [window]
 opacity = 0.9
+padding = { x = 10, y = 2 }
 
 [cursor]
 style = { shape = "Block", blinking = "Always"}
