@@ -47,9 +47,9 @@ hl.env("NIXOS_OZONE_WL", "1") -- Electron/Chromium apps render natively on Wayla
 
 hl.config({
     general = {
-        gaps_in     = 5,
-        gaps_out    = 10,
-        border_size = 2,
+        gaps_in     = 3,
+        gaps_out    = 6,
+        border_size = 1,
         layout      = "dwindle",
     },
     decoration = {
