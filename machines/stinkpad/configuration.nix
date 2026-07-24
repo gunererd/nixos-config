@@ -30,6 +30,7 @@ in
     ../../programs/lsp.nix
     ../../programs/screenshot.nix
     ../../programs/image-viewer.nix
+    ../../programs/showmethekey.nix
     ../../programs/docker.nix
     ../../programs/pdf-reader.nix
     ../../programs/archive-manager.nix
