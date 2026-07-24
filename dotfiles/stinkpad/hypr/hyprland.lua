@@ -80,6 +80,12 @@ hl.config({
     },
 })
 
+-- Corne has its own layout; no xkb swaps (keys in their physical positions).
+hl.device({
+    name       = "corne-choc-pro-keyboard",
+    kb_options = "",
+})
+
 -----------------------
 ---- WINDOW RULES ----
 -----------------------
