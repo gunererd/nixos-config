@@ -67,8 +67,14 @@ in
   };
 
   # Sound settings  
-  services.pipewire.enable = false;
-  services.pulseaudio.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
 
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
