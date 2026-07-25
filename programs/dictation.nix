@@ -26,6 +26,17 @@ let
       mkdir -p "$dir"
       audio="$dir/rec.wav"
       pidfile="$dir/rec.pid"
+      idfile="$dir/notif.id"
+
+      # Progress toasts (Listening → Transcribing → result) collapse into a
+      # single notification: transient so it never lands in Noctalia's history,
+      # and reusing the same replaces-id so it updates in place instead of
+      # stacking. Errors bypass this and stay as normal persistent toasts.
+      notify_status() {
+        args=( -t "$1" -h byte:transient:1 )
+        [ -s "$idfile" ] && args+=( -r "$(cat "$idfile")" )
+        notify-send -p "''${args[@]}" "Dictation" "$2" > "$idfile"
+      }
 
       if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
         pid="$(cat "$pidfile")"
@@ -40,10 +51,12 @@ let
         if [ -n "$text" ]; then
           wtype "$text"
         else
-          notify-send -t 1500 "Dictation" "No speech detected"
+          notify_status 1500 "No speech detected"
         fi
+        rm -f "$idfile"
       else
-        notify-send -t 1000 "Dictation" "🎙 Listening (${label})… press again to stop"
+        rm -f "$idfile"
+        notify_status 1000 "🎙 Listening (${label})… press again to stop"
         ffmpeg -y -f pulse -i default -ar 16000 -ac 1 "$audio" >/dev/null 2>&1 &
         echo "$!" > "$pidfile"
       fi
@@ -55,7 +68,7 @@ let
     label = "EN";
     runtimeInputs = with pkgs; [ ffmpeg whisper-cpp wtype libnotify coreutils ];
     transcribe = ''
-      notify-send -t 1500 "Dictation" "Transcribing…"
+      notify_status 1500 "Transcribing…"
       text="$(whisper-cli -m ${model} -f "$audio" -nt -np 2>/dev/null \
         | tr '\n' ' ' | tr -s ' ' | sed -e 's/^ *//' -e 's/ *$//')"
     '';
@@ -73,7 +86,7 @@ let
       fi
       key="$(tr -d '[:space:]' < "$keyfile")"
 
-      notify-send -t 1500 "Dictation" "Transcribing (Gemini)…"
+      notify_status 1500 "Transcribing (Gemini)…"
       base64 -w0 "$audio" | tr -d '\n' > "$dir/audio.b64"
       jq -n --arg p "${geminiPrompt}" --rawfile a "$dir/audio.b64" \
         '{contents:[{parts:[{text:$p},{inlineData:{mimeType:"audio/wav",data:$a}}]}],generationConfig:{temperature:0}}' \
