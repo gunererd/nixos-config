@@ -12,7 +12,7 @@
     
     # Language servers and tools
     marksman                           # Markdown LSP
-    dockerfile-language-server-nodejs  # Docker LSP
+    dockerfile-language-server         # Docker LSP
     docker-compose-language-service    # Docker Compose LSP
     yaml-language-server               # YAML LSP
     nil                               # Nix LSP
@@ -22,5 +22,7 @@
     typescript-language-server        # TypeScript LSP
     ruff                              # Python linter/formatter with LSP
     pyright                           # Python type checker
+    clang-tools                       # C/C++ LSP (clangd)
+    lua-language-server               # Lua LSP
   ];
 }
