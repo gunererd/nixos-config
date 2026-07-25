@@ -15,13 +15,11 @@ in
     text = ''
       claudeDir="${home}/.claude"
       opencodePlugins="${home}/.config/opencode/plugins"
-      rtkConfig="${home}/.config/rtk"
 
-      mkdir -p "$claudeDir" "$opencodePlugins" "$rtkConfig"
+      mkdir -p "$claudeDir" "$opencodePlugins"
 
       ln -sfn "${rtkDotfiles}/RTK.md" "$claudeDir/RTK.md"
       ln -sfn "${rtkDotfiles}/opencode-plugin.ts" "$opencodePlugins/rtk.ts"
-      ln -sfn "${rtkDotfiles}/filters.toml" "$rtkConfig/filters.toml"
 
       if [ ! -e "$claudeDir/CLAUDE.md" ] || ! ${pkgs.gnugrep}/bin/grep -qxF '@RTK.md' "$claudeDir/CLAUDE.md"; then
         echo '@RTK.md' >> "$claudeDir/CLAUDE.md"
@@ -40,7 +38,7 @@ in
           end
       ' "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
 
-      chown -R ${username}:users "$claudeDir" "${home}/.config/opencode" "$rtkConfig" 2>/dev/null || true
+      chown -R ${username}:users "$claudeDir" "${home}/.config/opencode" 2>/dev/null || true
     '';
   };
 }
