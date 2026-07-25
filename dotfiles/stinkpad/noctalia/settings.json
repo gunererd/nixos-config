@@ -42,7 +42,7 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.98,
+        "backgroundOpacity": 0.93,
         "barType": "simple",
         "capsuleColorKey": "none",
         "capsuleOpacity": 0,
@@ -357,14 +357,14 @@
     },
     "colorSchemes": {
         "darkMode": true,
-        "generationMethod": "tonal-spot",
+        "generationMethod": "muted",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
         "predefinedScheme": "Monochrome",
         "schedulingMode": "off",
         "syncGsettings": true,
-        "useWallpaperColors": false
+        "useWallpaperColors": true
     },
     "controlCenter": {
         "cards": [
@@ -441,8 +441,8 @@
                         "roundedCorners": true,
                         "showBackground": false,
                         "statType": "CPU",
-                        "x": 1184,
-                        "y": 762
+                        "x": 9,
+                        "y": 770
                     },
                     {
                         "defaultSettings": {
@@ -451,10 +451,10 @@
                         },
                         "id": "plugin:calendar-widget",
                         "roundedCorners": true,
-                        "scale": 0.9210213285284088,
+                        "scale": 0.7833564770661529,
                         "showBackground": false,
-                        "x": 17,
-                        "y": 620
+                        "x": 28,
+                        "y": 550
                     },
                     {
                         "clockColor": "none",
@@ -463,24 +463,24 @@
                         "format": "HH:mm\\nd MMMM yyyy",
                         "id": "Clock",
                         "roundedCorners": true,
-                        "scale": 0.7398620443275428,
+                        "scale": 0.8057481918037268,
                         "showBackground": false,
                         "useCustomFont": false,
-                        "x": 441,
-                        "y": 339
+                        "x": 81,
+                        "y": 495
                     },
                     {
                         "colorName": "none",
-                        "height": 24,
+                        "height": 42,
                         "hideWhenIdle": false,
                         "id": "AudioVisualizer",
                         "roundedCorners": true,
-                        "scale": 1.9547230542754928,
+                        "scale": 0.8690379315677412,
                         "showBackground": false,
-                        "visualizerType": "wave",
+                        "visualizerType": "linear",
                         "width": 240,
-                        "x": 483,
-                        "y": 569
+                        "x": 22,
+                        "y": 745
                     }
                 ]
             }
@@ -532,10 +532,10 @@
         "clockStyle": "digital",
         "compactLockScreen": true,
         "dimmerOpacity": 0.2,
-        "enableBlurBehind": true,
+        "enableBlurBehind": false,
         "enableLockScreenCountdown": true,
         "enableLockScreenMediaControls": false,
-        "enableShadows": true,
+        "enableShadows": false,
         "forceBlackScreenCorners": false,
         "iRadiusRatio": 1,
         "keybinds": {
@@ -796,23 +796,63 @@
             {
                 "enabled": true,
                 "id": "zed"
+            },
+            {
+                "enabled": true,
+                "id": "helix"
+            },
+            {
+                "enabled": true,
+                "id": "alacritty"
+            },
+            {
+                "enabled": true,
+                "id": "btop"
+            },
+            {
+                "enabled": true,
+                "id": "yazi"
+            },
+            {
+                "enabled": true,
+                "id": "zenBrowser"
+            },
+            {
+                "enabled": true,
+                "id": "gtk"
+            },
+            {
+                "enabled": true,
+                "id": "hyprland"
+            },
+            {
+                "enabled": true,
+                "id": "starship"
+            },
+            {
+                "enabled": true,
+                "id": "zathura"
+            },
+            {
+                "enabled": true,
+                "id": "qt"
             }
         ],
         "enableUserTheming": false
     },
     "ui": {
-        "boxBorderEnabled": false,
+        "boxBorderEnabled": true,
         "fontDefault": "CaskaydiaMono NF",
         "fontDefaultScale": 1,
         "fontFixed": "CaskaydiaMono NF",
         "fontFixedScale": 1,
-        "panelBackgroundOpacity": 0.93,
+        "panelBackgroundOpacity": 1,
         "panelsAttachedToBar": true,
-        "scrollbarAlwaysVisible": true,
+        "scrollbarAlwaysVisible": false,
         "settingsPanelMode": "attached",
-        "settingsPanelSideBarCardStyle": false,
+        "settingsPanelSideBarCardStyle": true,
         "tooltipsEnabled": true,
-        "translucentWidgets": false
+        "translucentWidgets": true
     },
     "wallpaper": {
         "automationEnabled": false,
@@ -824,7 +864,7 @@
         "fillColor": "#000000",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
-        "linkLightAndDarkWallpapers": true,
+        "linkLightAndDarkWallpapers": false,
         "monitorDirectories": [
         ],
         "overviewBlur": 0.4,
@@ -835,8 +875,8 @@
         "setWallpaperOnAllMonitors": true,
         "showHiddenFiles": false,
         "skipStartupTransition": false,
-        "solidColor": "#1a46d3",
-        "sortOrder": "name",
+        "solidColor": "#111111",
+        "sortOrder": "date_asc",
         "transitionDuration": 1500,
         "transitionEdgeSmoothness": 0.05,
         "transitionType": [
@@ -849,13 +889,13 @@
         ],
         "useOriginalImages": false,
         "useSolidColor": false,
-        "useWallhaven": true,
+        "useWallhaven": false,
         "viewMode": "single",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "000",
-        "wallhavenQuery": "rosepine",
+        "wallhavenQuery": "psylocke",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",
