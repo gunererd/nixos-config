@@ -110,6 +110,8 @@ hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(ipc .. "launcher toggle"))    --
 hl.bind(mainMod .. " + a",      hl.dsp.exec_cmd(ipc .. "launcher windows"))   -- qtile: rofi -show window
 hl.bind(mainMod .. " + s",      hl.dsp.exec_cmd(ipc .. "launcher clipboard")) -- qtile: greenclip history
 hl.bind(mainMod .. " + x",      hl.dsp.exec_cmd(ipc .. "lockScreen lock"))    -- qtile: i3lock-fancy
+hl.bind(mainMod .. " + Tab",    hl.dsp.exec_cmd("dictate-toggle"))            -- voice dictation (English): press to record, press to type
+hl.bind(mainMod .. " + t",      hl.dsp.exec_cmd("dictate-turkish"))           -- voice dictation (Turkish via Gemini): press to record, press to type
 
 -- Window management
 hl.bind(mainMod .. " + q",             hl.dsp.window.close())                      -- qtile: kill window

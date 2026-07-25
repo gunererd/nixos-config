@@ -45,6 +45,7 @@ in
     ../../programs/beekeeper-studio.nix
     ../../programs/opencode.nix
     ../../programs/rtk.nix
+    ../../programs/dictation.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
