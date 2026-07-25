@@ -44,6 +44,7 @@ in
     ../../programs/network-system-utilities.nix
     ../../programs/beekeeper-studio.nix
     ../../programs/opencode.nix
+    ../../programs/rtk.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
