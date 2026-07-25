@@ -18,6 +18,7 @@ in
     ../../programs/alacritty.nix
     ../../programs/ghostty.nix
     ../../programs/rustdesk.nix
+    ../../programs/localsend.nix
     ../../programs/zed.nix
     ../../programs/blueman.nix
     ../../programs/helix.nix
