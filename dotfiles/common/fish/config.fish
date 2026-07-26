@@ -57,8 +57,6 @@ end
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
-direnv hook fish | source
-
 atuin init fish --disable-up-arrow | source
 
 if status is-interactive

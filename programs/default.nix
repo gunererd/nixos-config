@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  programs.direnv.enable = true;
+
   # Convert home.packages to system packages
   environment.systemPackages = with pkgs; [
     # Core system utilities
@@ -31,7 +33,6 @@
     zoxide     # Better cd
     fzf        # Fuzzy finder
     atuin
-    direnv
     jq         # JSON processor
     httpie     # HTTP client
     yt-dlp     # Video/audio downloader
