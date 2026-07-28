@@ -361,7 +361,7 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Monochrome",
+        "predefinedScheme": "Vesper",
         "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": true
@@ -841,7 +841,7 @@
         "enableUserTheming": false
     },
     "ui": {
-        "boxBorderEnabled": true,
+        "boxBorderEnabled": false,
         "fontDefault": "CaskaydiaMono NF",
         "fontDefaultScale": 1,
         "fontFixed": "CaskaydiaMono NF",
@@ -850,7 +850,7 @@
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": false,
         "settingsPanelMode": "attached",
-        "settingsPanelSideBarCardStyle": true,
+        "settingsPanelSideBarCardStyle": false,
         "tooltipsEnabled": true,
         "translucentWidgets": true
     },
