@@ -93,8 +93,8 @@ hl.device({
 hl.window_rule({ match = { class = "org.gnome.Nautilus" }, float = true })
 hl.window_rule({ match = { class = "imv" }, float = true })
 hl.window_rule({ match = { class = "Alacritty" }, float = true })
-hl.window_rule({ match = { class = "Alacritty" }, size = "915 578" })
-hl.window_rule({ match = { class = "Alacritty" }, move = "471 67" })
+hl.window_rule({ match = { class = "Alacritty" }, size = "1160 823" })
+hl.window_rule({ match = { class = "Alacritty" }, move = "266 49" })
 
 ---------------------
 ---- KEYBINDINGS ----
