@@ -39,6 +39,10 @@ in
       ' "$settings" > "$settings.tmp" && mv "$settings.tmp" "$settings"
 
       chown -R ${username}:users "$claudeDir" "${home}/.config/opencode" 2>/dev/null || true
+
+      if [ -e "${home}/nixos-config/.rtk/filters.toml" ]; then
+        ${pkgs.util-linux}/bin/runuser -l ${username} -c 'cd ${home}/nixos-config && ${pkgs.rtk}/bin/rtk trust' >/dev/null 2>&1 || true
+      fi
     '';
   };
 }
