@@ -8,9 +8,11 @@
 ```
 ├── flake.nix              # START HERE: defines all machine configurations
 ├── machines/{name}/       # Machine-specific: configuration.nix lists all imports
-├── programs/              # Each .nix = one program/service (check imports in machines/)
+├── programs/              # Mostly one .nix per program/service; default.nix bundles shared CLI tools
 ├── dotfiles/              # User configs: common/ + {machine}/ specific
-└── scripts/               # Utilities and automation
+├── scripts/               # Utilities and automation (e.g. dotfiles-linker)
+├── templates/             # Nix devshell templates (e.g. flutter: flake.nix + .envrc)
+└── wallpapers/            # Wallpaper image assets
 ```
 
 ## How to Investigate This Repository
@@ -30,7 +32,7 @@
 ### 3. Finding Configuration Files
 - **User configs location**: Always in `dotfiles/` hierarchy
 - **Shared vs specific**: `common/` = all machines, `{machine}/` = that machine only
-- **Config discovery**: Use `find dotfiles/ -name "*.toml" -o -name "*.py" -o -name "config*"` etc.
+- **Config discovery**: Most configs are `.json`, `.fish`, `.toml`, `.kdl`, or `.lua` — e.g. `find dotfiles/ -name "*.json" -o -name "*.toml" -o -name "*.fish"`
 
 ### 4. Understanding What's Installed
 - **System packages**: Check `environment.systemPackages` in `programs/*.nix` files
