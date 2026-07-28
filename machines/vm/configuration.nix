@@ -30,6 +30,7 @@ in
     ../../programs/image-viewer.nix
     ../../programs/showmethekey.nix
     ../../programs/docker.nix
+    ../../programs/llmtrim.nix
     ../../programs/pdf-reader.nix
     ../../programs/archive-manager.nix
     ../../programs/dua.nix
