@@ -48,6 +48,7 @@ in
     ../../programs/rtk.nix
     ../../programs/llmtrim.nix
     ../../programs/dictation.nix
+    ../../programs/power.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];

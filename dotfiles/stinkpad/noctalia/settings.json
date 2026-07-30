@@ -435,16 +435,6 @@
                 "name": "eDP-1",
                 "widgets": [
                     {
-                        "diskPath": "/",
-                        "id": "SystemStat",
-                        "layout": "bottom",
-                        "roundedCorners": true,
-                        "showBackground": false,
-                        "statType": "CPU",
-                        "x": 9,
-                        "y": 770
-                    },
-                    {
                         "defaultSettings": {
                             "roundedCorners": true,
                             "showBackground": true
@@ -468,19 +458,6 @@
                         "useCustomFont": false,
                         "x": 81,
                         "y": 495
-                    },
-                    {
-                        "colorName": "none",
-                        "height": 42,
-                        "hideWhenIdle": false,
-                        "id": "AudioVisualizer",
-                        "roundedCorners": true,
-                        "scale": 0.8690379315677412,
-                        "showBackground": false,
-                        "visualizerType": "linear",
-                        "width": 240,
-                        "x": 22,
-                        "y": 745
                     }
                 ]
             }
