@@ -15,6 +15,25 @@ hl.monitor({
     scale    = "auto",
 })
 
+-- LG DualUp (2560x2880) on top; laptop panel centered underneath it.
+hl.monitor({
+    output   = "desc:LG Electronics LG SDQHD",
+    mode     = "preferred",
+    position = "0x0",
+    scale    = 1.6,
+})
+hl.monitor({
+    output   = "eDP-1",
+    mode     = "preferred",
+    position = "80x1800",
+    scale    = 1.5,
+})
+
+-- Clamshell: disable the laptop panel on lid close, restore it on open.
+-- logind ignores the lid switch when docked, so this never suspends.
+hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd([[hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })']]), { locked = true })
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd([[hyprctl eval 'hl.monitor({ output = "eDP-1", mode = "preferred", position = "80x1800", scale = 1.5, disabled = false })']]), { locked = true })
+
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
