@@ -32,7 +32,7 @@
         ],
         "preferredPlayer": "mpv",
         "spectrumFrameRate": 30,
-        "spectrumMirrored": true,
+        "spectrumMirrored": false,
         "visualizerType": "linear",
         "volumeFeedback": false,
         "volumeFeedbackSoundFile": "",
@@ -322,12 +322,19 @@
                 },
                 {
                     "deviceNativePath": "__default__",
-                    "displayMode": "graphic-clean",
+                    "displayMode": "graphic",
                     "hideIfIdle": false,
                     "hideIfNotDetected": true,
                     "id": "Battery",
-                    "showNoctaliaPerformance": false,
-                    "showPowerProfiles": false
+                    "showNoctaliaPerformance": true,
+                    "showPowerProfiles": true
+                },
+                {
+                    "defaultSettings": {
+                        "batteryDevice": "/sys/class/power_supply/BAT0",
+                        "chargeThreshold": 80
+                    },
+                    "id": "plugin:battery-threshold"
                 }
             ]
         }
@@ -839,7 +846,7 @@
         "favorites": [
         ],
         "fillColor": "#000000",
-        "fillMode": "crop",
+        "fillMode": "center",
         "hideWallpaperFilenames": false,
         "linkLightAndDarkWallpapers": false,
         "monitorDirectories": [
