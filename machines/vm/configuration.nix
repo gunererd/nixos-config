@@ -24,6 +24,8 @@ in
     ../../programs/nautilus.nix
     ../../programs/brightnessctl.nix
     ../../programs/claude-code.nix
+    ../../programs/pi.nix
+    ../../programs/omp.nix
     ../../programs/clipman.nix
     ../../programs/lsp.nix
     ../../programs/screenshot.nix

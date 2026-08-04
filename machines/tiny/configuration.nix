@@ -40,6 +40,8 @@ in
     ../../programs/fonts.nix
     ../../programs/greetd.nix
     ../../programs/claude-code.nix
+    ../../programs/pi.nix
+    ../../programs/omp.nix
     ./ui.nix
     ../../scripts/dotfiles-linker/link-dotfiles.nix
   ];
