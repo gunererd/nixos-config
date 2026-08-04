@@ -31,9 +31,9 @@ hl.monitor({
 
 -- Clamshell: drop the laptop panel on lid close only when docked; undocked it
 -- just DPMS-blanks eDP-1 so reopening the lid comes back (see clamshell.sh).
--- logind ignores the lid switch when docked, so this never suspends.
-hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/clamshell.sh close"), { locked = true })
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/clamshell.sh open"),  { locked = true })
+-- logind ignores the lid switch when docked, so this never suspends. A polling
+-- watcher (clamshell-watch.sh) drives this instead of `switch:` binds, which
+-- are edge-triggered and miss the lid state at launch/reload.
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -51,6 +51,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("noctalia-shell")
     -- Clipboard history backend for Noctalia's clipboard launcher.
     hl.exec_cmd("wl-paste --watch cliphist store")
+    hl.exec_cmd("sh /home/hippo/.config/hypr/clamshell-watch.sh")
 end)
 
 -------------------------------
@@ -101,8 +102,13 @@ hl.config({
 })
 
 -- Corne has its own layout; no xkb swaps (keys in their physical positions).
+-- Enumerates under two names: BLE/wireless and USB/wired (zmk- prefix).
 hl.device({
     name       = "corne-choc-pro-keyboard",
+    kb_options = "",
+})
+hl.device({
+    name       = "zmk-project-corne-choc-pro-keyboard",
     kb_options = "",
 })
 
@@ -142,6 +148,7 @@ hl.bind(mainMod .. " + f",             hl.dsp.window.fullscreen({ action = "togg
 hl.bind(mainMod .. " + v",             hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.layout("togglesplit"))            -- dwindle split toggle
 hl.bind(mainMod .. " + CONTROL + r",   hl.dsp.exec_cmd("hyprctl reload"))         -- qtile: reload config
+hl.bind(mainMod .. " + g",             hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/gather-windows.sh")) -- pull all windows to current workspace
 hl.bind(mainMod .. " + CONTROL + q",   hl.dsp.exit())                             -- qtile: shutdown WM
 
 -- Focus (vim keys)
