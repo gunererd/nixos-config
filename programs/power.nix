@@ -1,6 +1,14 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
+  # s2idle wake sources: USB HID devices and every hub above them ship with
+  # power/wakeup=disabled, so only the lid wakes the machine. Arm the HID leaf
+  # (keyboards/mice) and every hub in the chain so typing/moving wakes it.
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="usb", ATTR{bInterfaceClass}=="03", RUN+="${pkgs.runtimeShell} -c 'echo enabled > /sys%p/../power/wakeup'"
+    ACTION=="add|change", SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="enabled"
+  '';
+
   # TLP replaces power-profiles-daemon (mutually exclusive). Noctalia's
   # power-profile widget stops working; TLP auto-switches on AC/battery.
   services.power-profiles-daemon.enable = lib.mkForce false;
