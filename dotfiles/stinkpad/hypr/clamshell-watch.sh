@@ -1,21 +1,15 @@
 #!/usr/bin/env sh
-# Poll the lid switch and drive clamshell.sh on state changes. Replaces the
-# edge-triggered `switch:` binds, which miss the lid state present at launch or
-# after a config reload. Acts only on transitions, so monitors aren't
-# reconfigured every tick. flock keeps a single instance across restarts.
+# Tick the clamshell reconciler so eDP-1 tracks the lid + dock situation. This
+# polls instead of using `switch:` binds because the panel drifts out of the
+# desired state without any lid event: Hyprland re-applies its eDP-1 monitor
+# rule on every hotplug/reload, switching the panel back on while the lid stays
+# shut. clamshell.sh is idempotent and only acts on drift, so a plain loop
+# self-heals that within a tick without reconfiguring monitors every time.
+# flock keeps a single instance across restarts.
 exec 9>/tmp/clamshell-watch.lock
 flock -n 9 || exit 0
 
-last=""
 while :; do
-  if grep -q closed /proc/acpi/button/lid/*/state 2>/dev/null; then
-    state=close
-  else
-    state=open
-  fi
-  if [ "$state" != "$last" ]; then
-    sh /home/hippo/.config/hypr/clamshell.sh "$state"
-    last=$state
-  fi
+  sh /home/hippo/.config/hypr/clamshell.sh
   sleep 3
 done
