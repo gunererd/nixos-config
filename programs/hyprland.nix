@@ -12,4 +12,8 @@
   # Universal Wayland Session Manager — greetd launches the Hyprland uwsm
   # session (see programs/greetd.nix).
   programs.uwsm.enable = true;
+
+  # socat: clamshell-watch.sh reads Hyprland's event socket (socket2) to
+  # reconcile the laptop panel on dock/reload without polling.
+  environment.systemPackages = [ pkgs.socat ];
 }
