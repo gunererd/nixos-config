@@ -5,9 +5,6 @@
   environment.systemPackages = with pkgs; [
     # GTK themes
     gnome-themes-extra  # includes Adwaita
-    arc-theme
-    materia-theme
-    numix-gtk-theme
     whitesur-gtk-theme
 
     # Qt theming
