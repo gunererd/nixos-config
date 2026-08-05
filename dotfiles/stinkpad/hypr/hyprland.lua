@@ -31,9 +31,17 @@ hl.monitor({
 
 -- Clamshell: drop the laptop panel on lid close only when docked; undocked it
 -- just DPMS-blanks eDP-1 so reopening the lid comes back (see clamshell.sh).
--- logind ignores the lid switch when docked, so this never suspends. A polling
--- watcher (clamshell-watch.sh) drives this instead of `switch:` binds, which
--- are edge-triggered and miss the lid state at launch/reload.
+-- logind ignores the lid switch when docked, so this never suspends.
+--
+-- Event-driven, no polling: the lid binds below reconcile on open/close, and
+-- clamshell-watch.sh reconciles on Hyprland monitor hotplug/reload events (a
+-- reload re-applies the eDP-1 rule above and would otherwise leave the panel
+-- on while the lid stays shut). clamshell.sh reads the real lid state, so both
+-- bind directions just trigger it; it also runs once at launch to fix the lid
+-- state already present at startup — the gap that made switch binds unreliable
+-- on their own.
+hl.bind("switch:on:Lid Switch",  hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/clamshell.sh"), { locked = true })
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/clamshell.sh"), { locked = true })
 
 ---------------------
 ---- MY PROGRAMS ----
