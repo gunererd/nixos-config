@@ -1,20 +1,26 @@
 #!/usr/bin/env sh
-# Reconcile eDP-1 to the desired state for the current lid + dock situation.
-# Idempotent: it issues Hyprland commands only when the panel has actually
-# drifted, so it is safe to run every tick. This has to be a reconciler rather
-# than a lid-edge handler because Hyprland re-applies its eDP-1 monitor rule on
-# every hotplug/reload, silently switching the panel back on while the lid stays
-# shut (docking, monitor DPMS wake, `hyprctl reload`, ...). Those events carry
-# no lid edge, so only a drift check can catch them.
+# Reconcile eDP-1 (and, when docked, the external) to the desired state for the
+# current lid + dock situation. Idempotent: acts only on drift, so it is safe to
+# run on any lid bind or monitor event.
 #
-#   lid open                -> panel on    (enabled at its geometry, DPMS on)
-#   lid closed + external   -> panel off   (disabled; windows move to external)
-#   lid closed + standalone -> panel blank (DPMS off; disabling the only output
-#                              leaves Hyprland dark on reopen)
+# Reliable Hyprland primitives under the Lua config parser (learned the hard way):
+#   - disable a monitor:   hl.monitor({ disabled = true })        works
+#   - re-enable a monitor:  hl.monitor({ disabled = false })      SILENT NO-OP once
+#       eDP-1 is the only output (headless fallback); only `hyprctl reload`, which
+#       re-applies the monitor rules from the config, brings it back
+#   - dpms on/off:         hl.dispatch(hl.dsp.dpms('on'|'off',NAME))  works
+#       (`hyprctl dispatch dpms ...` is reparsed as Lua and errors out)
+#
+#   lid open                -> panel on   (reload if it was disabled, else dpms on)
+#   lid closed + external   -> panel off, and make sure the external is awake:
+#       resuming from suspend can leave the external disabled or DPMS-blanked, so
+#       reload if it came back disabled, else DPMS it back on
+#   lid closed + standalone -> panel off  (dpms-blank if on; if it is already
+#                              disabled, leave it — don't strand Hyprland headless)
 
-# The Lua config parser rejects `hyprctl keyword`, so drive monitors via eval.
-enable='hl.monitor({ output = "eDP-1", mode = "preferred", position = "80x1800", scale = 1.5, disabled = false })'
 disable='hl.monitor({ output = "eDP-1", disabled = true })'
+dpms_on="hl.dispatch(hl.dsp.dpms('on','eDP-1'))"
+dpms_off="hl.dispatch(hl.dsp.dpms('off','eDP-1'))"
 
 mon=$(hyprctl monitors all -j)
 
@@ -30,19 +36,26 @@ disabled=${edp% *}
 dpms=${edp#* }
 
 if [ "$lid" = "open" ]; then
-  if [ "$disabled" != "false" ] || [ "$dpms" != "true" ]; then
-    hyprctl eval "$enable"
-    hyprctl dispatch dpms on eDP-1
+  if [ "$disabled" != "false" ]; then
+    hyprctl reload
+  elif [ "$dpms" != "true" ]; then
+    hyprctl eval "$dpms_on"
   fi
 elif [ "$external" = "true" ]; then
   if [ "$disabled" != "true" ]; then
     hyprctl eval "$disable"
   fi
-else
-  if [ "$disabled" != "false" ]; then
-    hyprctl eval "$enable"
+  # An external that resumed disabled needs a reload; one that is only DPMS-off
+  # just needs waking. Both leave the screen black otherwise.
+  if echo "$mon" | jq -e 'any(.[]; .name != "eDP-1" and .disabled == true)' >/dev/null; then
+    hyprctl reload
+  else
+    for m in $(echo "$mon" | jq -r '.[] | select(.name != "eDP-1" and .dpmsStatus == false) | .name'); do
+      hyprctl eval "hl.dispatch(hl.dsp.dpms('on','$m'))"
+    done
   fi
-  if [ "$dpms" != "false" ]; then
-    hyprctl dispatch dpms off eDP-1
+else
+  if [ "$disabled" = "false" ] && [ "$dpms" != "false" ]; then
+    hyprctl eval "$dpms_off"
   fi
 fi
