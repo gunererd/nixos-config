@@ -51,6 +51,7 @@ in
     ../../programs/ponytail.nix
     ../../programs/gsd.nix
     ../../programs/llmtrim.nix
+    ../../programs/deskflow.nix
     ../../programs/dictation.nix
     ../../programs/power.nix
     ./ui.nix
