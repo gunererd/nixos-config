@@ -48,6 +48,7 @@ in
     ../../programs/beekeeper-studio.nix
     ../../programs/opencode.nix
     ../../programs/rtk.nix
+    ../../programs/ponytail.nix
     ../../programs/gsd.nix
     ../../programs/llmtrim.nix
     ../../programs/dictation.nix

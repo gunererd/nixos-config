@@ -19,6 +19,7 @@ in
     ../../programs/zed.nix
     ../../programs/helix.nix
     ../../programs/git.nix
+    ../../programs/ponytail.nix
     ../../programs/zellij.nix
     ../../programs/nautilus.nix
     ../../programs/brightnessctl.nix
