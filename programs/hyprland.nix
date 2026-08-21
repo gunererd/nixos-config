@@ -16,4 +16,9 @@
   # socat: clamshell-watch.sh reads Hyprland's event socket (socket2) to
   # reconcile the laptop panel on dock/reload without polling.
   environment.systemPackages = [ pkgs.socat ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  };
 }
