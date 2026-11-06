@@ -3,9 +3,9 @@
 {
   # Noctalia — Quickshell-based Wayland desktop shell (bar, launcher,
   # notifications, control center, lock, wallpaper, OSDs). Launched from
-  # Hyprland via `noctalia-shell` (see dotfiles/stinkpad/hypr/hyprland.lua).
+  # Hyprland via `noctalia` (see dotfiles/stinkpad/hypr/hyprland.lua).
   environment.systemPackages = with pkgs; [
-    noctalia-shell
+    noctalia
   ];
 
   # Services Noctalia relies on. networkmanager + bluetooth are already

@@ -28,7 +28,7 @@ local fileManager = "nautilus"
 
 -- Noctalia (Quickshell shell): bar, launcher, notifications, OSDs, lock.
 hl.on("hyprland.start", function()
-    hl.exec_cmd("noctalia-shell")
+    hl.exec_cmd("noctalia --daemon")
     -- Clipboard history backend for Noctalia's clipboard launcher.
     hl.exec_cmd("wl-paste --watch cliphist store")
 end)
@@ -92,18 +92,18 @@ hl.window_rule({ match = { class = "imv" }, float = true })
 ---------------------
 
 -- mod = SUPER, mirroring the old qtile config (mod4). Noctalia's IPC
--- (`noctalia-shell ipc call <target> <method>`) replaces rofi/greenclip/i3lock
+-- (`noctalia msg <command>`) replaces rofi/greenclip/i3lock
 -- and drives the volume/brightness OSDs.
 local mainMod = "SUPER"
-local ipc     = "noctalia-shell ipc call "
+local ipc     = "noctalia msg "
 
 -- Programs
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))            -- qtile: bring/spawn terminal
 hl.bind(mainMod .. " + d",      hl.dsp.exec_cmd(fileManager))         -- qtile: dolphin
-hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(ipc .. "launcher toggle"))    -- qtile: rofi -show drun
-hl.bind(mainMod .. " + a",      hl.dsp.exec_cmd(ipc .. "launcher windows"))   -- qtile: rofi -show window
-hl.bind(mainMod .. " + s",      hl.dsp.exec_cmd(ipc .. "launcher clipboard")) -- qtile: greenclip history
-hl.bind(mainMod .. " + x",      hl.dsp.exec_cmd(ipc .. "lockScreen lock"))    -- qtile: i3lock-fancy
+hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))    -- qtile: rofi -show drun
+hl.bind(mainMod .. " + a",      hl.dsp.exec_cmd(ipc .. "window-switcher"))   -- qtile: rofi -show window
+hl.bind(mainMod .. " + s",      hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard")) -- qtile: greenclip history
+hl.bind(mainMod .. " + x",      hl.dsp.exec_cmd(ipc .. "session lock"))    -- qtile: i3lock-fancy
 
 -- Window management
 hl.bind(mainMod .. " + q",             hl.dsp.window.close())                      -- qtile: kill window
@@ -148,8 +148,8 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Volume / brightness via Noctalia (shows OSD, controls the real device)
-hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. "volume increase"),   { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. "volume decrease"),   { locked = true, repeating = true })
-hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. "volume muteOutput"), { locked = true })
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness increase"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness decrease"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. "volume-up"),   { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. "volume-down"),   { locked = true, repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
