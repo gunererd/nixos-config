@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  # tuigreet force-bolds the Username:/Password: labels (src/ui/mod.rs
+  # tuigreet force-bolds the Username:/Password: labels (crates/tuigreet/src/ui/mod.rs
   # prompt_value adds Modifier::BOLD). On the Linux console bold both thickens
   # the stroke and shifts the hue brighter, so a bold label never matches the
   # non-bold text no matter which color we pick — it breaks the uniform
@@ -9,7 +9,7 @@ let
   # same. (Modifier stays imported — it's still used for the REVERSED buttons.)
   tuigreet = pkgs.tuigreet.overrideAttrs (old: {
     postPatch = (old.postPatch or "") + ''
-      substituteInPlace src/ui/mod.rs \
+      substituteInPlace crates/tuigreet/src/ui/mod.rs \
         --replace 'theme.of(&[Themed::Prompt]).add_modifier(Modifier::BOLD)' 'theme.of(&[Themed::Prompt])'
     '';
   });

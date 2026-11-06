@@ -46,7 +46,7 @@ in
     ../../programs/syncthing.nix
     ../../programs/network-system-utilities.nix
     ../../programs/beekeeper-studio.nix
-    ../../programs/opencode.nix
+    ../../programs/node.nix
     ../../programs/rtk.nix
     ../../programs/ponytail.nix
     ../../programs/gsd.nix
