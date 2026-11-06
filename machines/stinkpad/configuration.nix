@@ -47,6 +47,8 @@ in
     ../../programs/network-system-utilities.nix
     ../../programs/beekeeper-studio.nix
     ../../programs/node.nix
+    ../../programs/herdr.nix
+    ../../programs/tailscale.nix
     ../../programs/rtk.nix
     ../../programs/ponytail.nix
     ../../programs/gsd.nix
