@@ -19,7 +19,8 @@
           "size": {
             "px": 46
           },
-          "window_drag": true
+          "window_drag": true,
+          "hidden": true
         },
         {
           "id": "sidebar-lists",
@@ -60,7 +61,8 @@
           },
           "size": {
             "px": 69
-          }
+          },
+          "hidden": true
         }
       ],
       "size": {
