@@ -141,7 +141,7 @@ local mainMod = "SUPER"
 local ipc     = "noctalia msg "
 
 -- Programs
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))            -- qtile: bring/spawn terminal
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/herdr-fetch.sh"))
 hl.bind(mainMod .. " + d",      hl.dsp.exec_cmd(fileManager))         -- qtile: dolphin
 hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))    -- qtile: rofi -show drun
 hl.bind(mainMod .. " + a",      hl.dsp.exec_cmd(ipc .. "window-switcher"))   -- qtile: rofi -show window
@@ -199,3 +199,5 @@ hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. "volume-down"),   { lock
 hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness-up"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
+
+hl.window_rule({ match = { class = "^(herdr-app)$" }, opacity = "0.88 0.82" })

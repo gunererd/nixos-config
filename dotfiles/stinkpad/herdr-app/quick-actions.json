@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Lazygit",
+    "description": "Git UI for the current folder",
+    "command": "lazygit"
+  },
+  {
+    "name": "Gitu",
+    "description": "Git client for the current folder",
+    "command": "gitu"
+  },
+  {
+    "name": "Config",
+    "description": "Edit ~/.config in helix",
+    "command": "cd ~/.config && hx ."
+  },
+  {
+    "name": "llmtrim",
+    "description": "llmtrim savings dashboard",
+    "command": "fish -c 'llmtrim status'; printf '\\nPress Enter to close'; read -r _"
+  },
+  {
+    "name": "btop",
+    "description": "System monitor",
+    "command": "btop"
+  },
+  {
+    "name": "Yazi",
+    "description": "File manager for the current folder",
+    "command": "yazi"
+  },
+  {
+    "name": "Changes",
+    "description": "Open Changes as a pane",
+    "command": "herdr-app do pane.split \"{\\\"direction\\\":\\\"right\\\",\\\"mod\\\":\\\"changes-pane\\\",\\\"props\\\":{\\\"folder\\\":\\\"$PWD\\\"}}\" && herdr-app do pane.zoom"
+  },
+  {
+    "name": "Git Graph",
+    "description": "Open the git graph as a pane",
+    "command": "herdr-app do pane.split \"{\\\"direction\\\":\\\"right\\\",\\\"mod\\\":\\\"git-graph\\\",\\\"props\\\":{\\\"folder\\\":\\\"$PWD\\\"}}\" && herdr-app do pane.zoom"
+  }
+]

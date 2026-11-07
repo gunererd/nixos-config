@@ -12,3 +12,22 @@ __pycache__/
 # Local tooling state (not part of the config)
 .rtk/
 .claude/
+
+# Herdr app runtime state; app-shipped files are rewritten by herdr-app itself.
+dotfiles/*/herdr-app/herdr-app.sock
+dotfiles/*/herdr-app/telemetry/
+dotfiles/*/herdr-app/data/
+dotfiles/*/herdr-app/frame/
+dotfiles/*/herdr-app/icons/
+dotfiles/*/herdr-app/update-notes*
+dotfiles/*/herdr-app/AGENTS.md
+dotfiles/*/herdr-app/*.d.ts
+dotfiles/*/herdr-app/mods/*/*.d.ts
+dotfiles/*/herdr-app/window.json
+dotfiles/*/herdr-app/shared.json
+dotfiles/*/herdr-app/view.json
+dotfiles/*/herdr-app/seen.json
+dotfiles/*/herdr-app/herdr-shot.png
+dotfiles/*/herdr-app/layouts/.state/
+dotfiles/*/herdr-app/mods/herdr-sim-screen/pane-*.jpg
+dotfiles/*/herdr-app/**/*.bak*
