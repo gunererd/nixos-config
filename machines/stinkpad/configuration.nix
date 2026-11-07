@@ -48,6 +48,7 @@ in
     ../../programs/beekeeper-studio.nix
     ../../programs/node.nix
     ../../programs/herdr.nix
+    ../../programs/strata.nix
     ../../programs/tailscale.nix
     ../../programs/rtk.nix
     ../../programs/ponytail.nix

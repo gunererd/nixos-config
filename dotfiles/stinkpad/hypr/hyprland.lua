@@ -48,7 +48,8 @@ hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/cl
 ---------------------
 
 local terminal    = "alacritty"
-local fileManager = "nautilus"
+local fileManager = "strata"
+local hypr        = "sh /home/hippo/.config/hypr/"
 
 -------------------
 ---- AUTOSTART ----
@@ -145,6 +146,7 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/her
 hl.bind(mainMod .. " + d",      hl.dsp.exec_cmd(fileManager))         -- qtile: dolphin
 hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))    -- qtile: rofi -show drun
 hl.bind(mainMod .. " + a",      hl.dsp.exec_cmd(ipc .. "window-switcher"))   -- qtile: rofi -show window
+hl.bind(mainMod .. " + SHIFT + a", hl.dsp.exec_cmd("chromium --app=https://gemini.google.com"))
 hl.bind(mainMod .. " + s",      hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard")) -- qtile: greenclip history
 hl.bind(mainMod .. " + x",      hl.dsp.exec_cmd(ipc .. "session lock"))    -- qtile: i3lock-fancy
 hl.bind(mainMod .. " + Tab",    hl.dsp.exec_cmd("dictate-toggle"))            -- voice dictation (English): press to record, press to type
@@ -154,20 +156,26 @@ hl.bind(mainMod .. " + t",      hl.dsp.exec_cmd("dictate-turkish"))           --
 hl.bind(mainMod .. " + q",             hl.dsp.window.close())                      -- qtile: kill window
 hl.bind(mainMod .. " + f",             hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + v",             hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + c",             hl.dsp.window.center())
+hl.bind(mainMod .. " + z",             hl.dsp.window.alter_zorder({ mode = "top" }))
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.layout("togglesplit"))            -- dwindle split toggle
+hl.bind(mainMod .. " + Down",          hl.dsp.layout("togglesplit"))
+for _, dir in ipairs({ "left", "right", "up", "down" }) do
+    hl.bind(mainMod .. " + SHIFT + " .. dir, hl.dsp.exec_cmd(hypr .. "resize-floating-directional.sh " .. dir))
+end
 hl.bind(mainMod .. " + CONTROL + r",   hl.dsp.exec_cmd("hyprctl reload"))         -- qtile: reload config
 hl.bind(mainMod .. " + g",             hl.dsp.exec_cmd("sh /home/hippo/.config/hypr/gather-windows.sh")) -- pull all windows to current workspace
 hl.bind(mainMod .. " + CONTROL + q",   hl.dsp.exit())                             -- qtile: shutdown WM
 
--- Focus (vim keys)
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+-- Focus (vim keys), including floating windows
+hl.bind(mainMod .. " + h", hl.dsp.exec_cmd(hypr .. "focus-direction.sh l"))
+hl.bind(mainMod .. " + l", hl.dsp.exec_cmd(hypr .. "focus-direction.sh r"))
+hl.bind(mainMod .. " + j", hl.dsp.exec_cmd(hypr .. "focus-direction.sh d"))
+hl.bind(mainMod .. " + k", hl.dsp.exec_cmd(hypr .. "focus-direction.sh u"))
 
--- Move window (vim keys)
-hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+-- Move window to previous/next monitor; vim keys J/K move within the workspace
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ monitor = "-1" }))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ monitor = "+1" }))
 hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
 
@@ -183,11 +191,18 @@ hl.bind(mainMod .. " + minus", hl.dsp.window.resize({ x = -40, y = -40 }))
 hl.bind(mainMod .. " + SHIFT + s",
     hl.dsp.exec_cmd([[sh -c 'grim -g "$(slurp)" - | tee ~/Pictures/$(date +%Y%m%d-%H%M%S).png | wl-copy --type image/png']]))
 
--- Workspaces 1-9 (qtile groups "123456789")
-for i = 1, 9 do
-    hl.bind(mainMod .. " + " .. i,         hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
+hl.bind("Print",         hl.dsp.exec_cmd(ipc .. "screenshot-region --copy-to-clipboard --no-save-to-file"))
+hl.bind("SHIFT + Print",
+    hl.dsp.exec_cmd([[sh -c 'f=~/Pictures/$(date +%Y%m%d-%H%M%S).png; grim -g "$(slurp)" "$f" && printf %s "$f" | wl-copy && notify-send "Screenshot filepath copied" "$f" -t 5000 -a Screenshot']]))
+
+-- Workspaces 1-10 (0 = 10); SHIFT moves the window without following it
+for i = 1, 10 do
+    local key = tostring(i % 10)
+    hl.bind(mainMod .. " + " .. key,         hl.dsp.focus({ workspace = tostring(i) }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = tostring(i), follow = false }))
 end
+hl.bind(mainMod .. " + r",         hl.dsp.exec_cmd(hypr .. "magic-toggle.sh"))
+hl.bind(mainMod .. " + SHIFT + e", hl.dsp.window.move({ workspace = "special:special", follow = false }))
 
 -- Move/resize with mouse (qtile: mod+Button1 drag, mod+Button3 resize)
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
